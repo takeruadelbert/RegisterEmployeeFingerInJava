@@ -30,6 +30,7 @@ public class SignIn extends javax.swing.JFrame {
     private void Initialize() {
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
+        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
 
         addWindowListener(new WindowAdapter() {
@@ -127,11 +128,12 @@ public class SignIn extends javax.swing.JFrame {
 
         getContentPane().add(pnl_overlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 470));
 
-        jMenu1.setText("Setting");
-        jMenu1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database.png"))); // NOI18N
+        jMenuBar2.setForeground(new java.awt.Color(60, 63, 65));
 
+        jMenu1.setText("Setting");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/detabase.png"))); // NOI18N
         jMenuItem1.setText("Database Configuration");
-        jMenuItem1.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/images/database.png"))); // NOI18N
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -141,13 +143,19 @@ public class SignIn extends javax.swing.JFrame {
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
         jMenuItem2.setText("Exit");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar2.add(jMenu1);
 
         jMenu2.setText("Help");
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/version.png"))); // NOI18N
+        jMenuItem3.setText("About Program");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -199,14 +207,15 @@ public class SignIn extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        handleClosing();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     private void handleClosing() {
         int answer = showWarningMessage();
-        switch (answer) {
-            case JOptionPane.YES_OPTION:
-                dispose();
-                break;
-            default:
-                break;
+        if (answer == 0) {
+            dispose();
         }
     }
 
