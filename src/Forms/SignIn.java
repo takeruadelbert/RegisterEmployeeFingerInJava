@@ -6,8 +6,11 @@
 package Forms;
 
 import Database.DBConnect;
-import Helper.TKHelper;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
 
 /**
@@ -23,6 +26,13 @@ public class SignIn extends javax.swing.JFrame {
         initComponents();
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
+        setLocationRelativeTo(null);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                handleClosing();
+            }
+        });
     }
 
     /**
@@ -47,6 +57,7 @@ public class SignIn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register Employee Finger");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(32, 33, 35));
@@ -117,25 +128,43 @@ public class SignIn extends javax.swing.JFrame {
         String username = txt_username.getText();
         String password = txt_password.getText();
         if (username.isEmpty() || password.isEmpty()) {
-            showMessageDialog(null, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
+            showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;
         }
 
         DBConnect dbconnect = new DBConnect();
         if (dbconnect.checkMySQLConnection(true)) {
-            if(dbconnect.checkSignIn(username, password)) {
-                showMessageDialog(null, "Login Success!");
+            if (dbconnect.checkSignIn(username, password)) {
+                showMessageDialog(this, "Login Success!");
             } else {
-                showMessageDialog(null, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
+                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
             }
         } else {
-            showMessageDialog(null, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
+            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
         // TODO add your handling code here:        
     }//GEN-LAST:event_txt_passwordActionPerformed
+
+    private void handleClosing() {
+        int answer = showWarningMessage();
+        switch (answer) {
+            case JOptionPane.YES_OPTION:
+                dispose();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private int showWarningMessage() {
+        String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
+        String defaultOption = buttonLabels[0];
+        Icon icon = null;
+        return JOptionPane.showOptionDialog(this, "Are you sure you want to exit?", "Warning", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, icon, buttonLabels, defaultOption);
+    }
 
     /**
      * @param args the command line arguments
