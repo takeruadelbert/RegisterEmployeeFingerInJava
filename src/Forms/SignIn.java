@@ -5,7 +5,6 @@
  */
 package Forms;
 
-import Database.DBConnect;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -25,6 +24,7 @@ public class SignIn extends javax.swing.JFrame {
     public SignIn() {
         initComponents();
         Initialize();
+        
     }
 
     private void Initialize() {
@@ -67,7 +67,7 @@ public class SignIn extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Register Employee Finger");
+        setTitle("Register Employee Finger - Sign In");
         setBackground(new java.awt.Color(32, 33, 35));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -183,16 +183,16 @@ public class SignIn extends javax.swing.JFrame {
             return;
         }
 
-        DBConnect dbconnect = new DBConnect();
-        if (dbconnect.checkMySQLConnection(true)) {
-            if (dbconnect.checkSignIn(username, password)) {
-                showMessageDialog(this, "Login Success!");
-            } else {
-                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
-            }
-        } else {
-            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
-        }
+//        DBConnect dbconnect = new DBConnect();
+//        if (dbconnect.checkMySQLConnection(true)) {
+//            if (dbconnect.checkSignIn(username, password)) {
+//                showMessageDialog(this, "Login Success!");
+//            } else {
+//                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
+//            }
+//        } else {
+//            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
@@ -201,6 +201,9 @@ public class SignIn extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        DBConfig config = new DBConfig();
+        config.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed

@@ -23,30 +23,22 @@ import java.util.List;
  */
 public class DBConnect implements Database {
 
-    private static String db_host;
-    private static String db_name;
-    private static String db_staff;
-    private static String db_username;
-    private static String db_password;
+    private String db_host;
+    private String db_name;
+    private String db_staff;
+    private String db_username;
+    private String db_password;
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static Connection connection;
     private static Statement statement;
     private static ResultSet resultSet;
 
-    public DBConnect() {
-        db_host = "localhost";
-        db_name = "test";
-        db_username = "root";
-        db_password = "takeru123";
-        db_staff = "vms";
-    }
-
     public DBConnect(String db_host, String db_name, String db_staff, String db_username, String db_password) {
-        db_host = db_host;
-        db_name = db_name;
-        db_username = db_username;
-        db_password = db_password;
-        db_staff = db_staff;
+        this.db_host = db_host;
+        this.db_name = db_name;
+        this.db_username = db_username;
+        this.db_password = db_password;
+        this.db_staff = db_staff;
     }
 
     @Override
