@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.simple.JSONObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,6 +33,10 @@ public class DBConnect implements Database {
     private static Connection connection;
     private static Statement statement;
     private static ResultSet resultSet;
+
+    public DBConnect() {
+        initDBConfig();
+    }
 
     public DBConnect(String db_host, String db_name, String db_staff, String db_username, String db_password) {
         this.db_host = db_host;
@@ -68,7 +73,7 @@ public class DBConnect implements Database {
 
     @Override
     public boolean checkMySQLConnection(boolean is_for_staff) {
-        boolean successful = true;
+        boolean successful = false;
         try {
             successful = is_for_staff ? openConnection(true) : openConnection(false);
             if (successful) {
@@ -170,5 +175,16 @@ public class DBConnect implements Database {
             }
         }
         return employee;
+    }
+
+    public void initDBConfig() {
+        JSONObject data = TKHelper.readJSONFile();
+        JSONObject temp = (JSONObject) data.get("database");
+        this.db_host = temp.get("db_host").toString();
+        this.db_name = temp.get("db_name").toString();
+        this.db_staff = temp.get("db_staff").toString();
+        this.db_username = temp.get("db_username").toString();
+        String temp_db_password = temp.get("db_password").toString();
+        this.db_password = TKHelper.decryptString(temp_db_password);
     }
 }

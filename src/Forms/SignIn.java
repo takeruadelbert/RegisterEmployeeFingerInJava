@@ -5,12 +5,15 @@
  */
 package Forms;
 
+import Database.DBConnect;
+import Helper.TKHelper;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -24,20 +27,30 @@ public class SignIn extends javax.swing.JFrame {
     public SignIn() {
         initComponents();
         Initialize();
-        
     }
-
+    
     private void Initialize() {
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
             }
         });
+
+        // init data login
+        JSONObject temp = TKHelper.readJSONFile();
+        JSONObject data = (JSONObject) temp.get("data_user");
+        String username = data.get("username").toString();
+        String password = data.get("password").toString();
+        txt_username.setText(username);
+        txt_password.setText(TKHelper.decryptString(password));
+        if (!username.isEmpty() && !password.isEmpty()) {
+            rememberMe.setSelected(true);
+        }
     }
 
     /**
@@ -57,6 +70,7 @@ public class SignIn extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txt_password = new javax.swing.JPasswordField();
         btnSignIn = new java.awt.Button();
+        rememberMe = new javax.swing.JCheckBox();
         pnl_overlay = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -116,7 +130,18 @@ public class SignIn extends javax.swing.JFrame {
                 btnSignInActionPerformed(evt);
             }
         });
-        jPanel2.add(btnSignIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 270, 40));
+        jPanel2.add(btnSignIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 270, 40));
+
+        rememberMe.setBackground(new java.awt.Color(32, 33, 35));
+        rememberMe.setForeground(new java.awt.Color(57, 113, 177));
+        rememberMe.setText("Remember Me");
+        rememberMe.setIconTextGap(10);
+        rememberMe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rememberMeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rememberMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 400, 470));
 
@@ -182,17 +207,25 @@ public class SignIn extends javax.swing.JFrame {
             showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;
         }
-
-//        DBConnect dbconnect = new DBConnect();
-//        if (dbconnect.checkMySQLConnection(true)) {
-//            if (dbconnect.checkSignIn(username, password)) {
-//                showMessageDialog(this, "Login Success!");
-//            } else {
-//                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
-//            }
-//        } else {
-//            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
-//        }
+        
+        DBConnect dbconnect = new DBConnect();
+        if (dbconnect.checkMySQLConnection(true)) {
+            if (dbconnect.checkSignIn(username, password)) {
+                if (rememberMe.isSelected()) {
+                    JSONObject data = TKHelper.readJSONFile();
+                    JSONObject temp = (JSONObject) data.get("data_user");
+                    temp.put("username", username);
+                    String encryptedPassword = TKHelper.encryptString(password);
+                    temp.put("password", encryptedPassword);
+                    TKHelper.updateJSONFile(data);
+                }
+                showMessageDialog(this, "Login Success!");
+            } else {
+                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
+            }
+        } else {
+            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
@@ -215,13 +248,17 @@ public class SignIn extends javax.swing.JFrame {
         handleClosing();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void rememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rememberMeActionPerformed
+    
     private void handleClosing() {
         int answer = showWarningMessage();
         if (answer == 0) {
             dispose();
         }
     }
-
+    
     private int showWarningMessage() {
         String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
         String defaultOption = buttonLabels[0];
@@ -279,6 +316,7 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel pnl_overlay;
+    private javax.swing.JCheckBox rememberMe;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables

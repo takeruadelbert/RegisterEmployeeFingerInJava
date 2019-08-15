@@ -340,11 +340,13 @@ public class DBConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnTestConnectionDB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestConnectionDB1ActionPerformed
-        InitData();
-        if (db.checkMySQLConnection(true)) {
-            JOptionPane.showMessageDialog(this, "Connection Established.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Cannot Establish Connection.", "Warning", JOptionPane.WARNING_MESSAGE);
+        if (validateField()) {
+            InitData();
+            if (db.checkMySQLConnection(true)) {
+                JOptionPane.showMessageDialog(this, "Connection Established.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot Establish Connection.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnTestConnectionDB1ActionPerformed
 
@@ -386,12 +388,15 @@ public class DBConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_db_passwordActionPerformed
 
     private void btnTestConnectionDB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestConnectionDB2ActionPerformed
-        InitData();
-        if (db.checkMySQLConnection(false)) {
-            JOptionPane.showMessageDialog(this, "Connection Established.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Cannot Establish Connection.", "Warning", JOptionPane.WARNING_MESSAGE);
+        if (validateField()) {
+            InitData();
+            if (db.checkMySQLConnection(false)) {
+                JOptionPane.showMessageDialog(this, "Connection Established.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot Establish Connection.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         }
+
     }//GEN-LAST:event_btnTestConnectionDB2ActionPerformed
 
     private void InitData() {
