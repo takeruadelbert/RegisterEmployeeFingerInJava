@@ -1,0 +1,15 @@
+{
+    "database": {
+        "db_staff": "",
+        "db_name": "",
+        "db_username": "",
+        "db_host": "",
+        "db_password": ""
+    },
+    "DES_key": "",
+    "data_user": {
+        "password": "",
+        "DES_key": "",
+        "username": ""
+    }
+}
