@@ -2,6 +2,7 @@ package Database;
 
 import Database.Data.Employee;
 import Database.Data.TemplateFinger;
+import Forms.ScanFinger;
 import Helper.TKHelper;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -188,5 +189,25 @@ public class DBConnect implements Database {
         this.db_username = temp.get("db_username").toString();
         String temp_db_password = temp.get("db_password").toString();
         this.db_password = TKHelper.decryptString(temp_db_password);
+    }
+
+    public int checkDataFingerExist(int employeeID, int indexFinger) {
+        int template_id = -1;
+        try {
+            String query = "select id from hr_template where employee_id = " + employeeID + " AND template_index = " + indexFinger + " limit 1";
+            if (openConnection(false)) {
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery(query);
+                while(resultSet.next()) {
+                    template_id = resultSet.getInt("id");
+                    ScanFinger.templateID = template_id;
+                }
+                closeConnection();
+                return template_id == -1 ? 0 : 1;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return template_id;
     }
 }

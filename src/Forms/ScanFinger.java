@@ -5,6 +5,7 @@
  */
 package Forms;
 
+import Database.DBConnect;
 import FingerprintDevice.Device;
 import Helper.TKHelper;
 import java.awt.event.WindowAdapter;
@@ -26,6 +27,10 @@ public class ScanFinger extends javax.swing.JFrame {
     private int templateLength;
     private Device device;
     public int scannedTemplateLength = -1;
+    public static int templateID;
+    public String dataFinger = "";
+    private final DBConnect db = new DBConnect();
+    private Home home;
 
     /**
      * Creates new form ScanFinger
@@ -35,12 +40,13 @@ public class ScanFinger extends javax.swing.JFrame {
         Initialize();
     }
 
-    public ScanFinger(int employeeID, int indexFinger, int templateLength) {
+    public ScanFinger(int employeeID, int indexFinger, int templateLength, Home home) {
         initComponents();
         this.employeeID = employeeID;
         this.indexFinger = indexFinger;
         this.templateLength = templateLength;
         device = new Device(this);
+        this.home = home;
         Initialize();
     }
 
@@ -83,7 +89,6 @@ public class ScanFinger extends javax.swing.JFrame {
 
     public void displayScannedFingerprint() throws IOException {
         fingerprint.setIcon(new ImageIcon(ImageIO.read(new File("fingerprint.bmp"))));
-        System.out.println("scanned template length = " + scannedTemplateLength);
         txtCurrentQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(scannedTemplateLength));
     }
 
@@ -181,6 +186,11 @@ public class ScanFinger extends javax.swing.JFrame {
         btnSave.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setLabel("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 100, -1));
 
         btnStart.setBackground(new java.awt.Color(126, 87, 194));
@@ -261,6 +271,8 @@ public class ScanFinger extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
         device.closeDevice();
+        System.out.println("NIK = " + home.employeeNIK);
+        this.home.fetchDataEmployeeByNIK(home.employeeNIK);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
@@ -274,6 +286,43 @@ public class ScanFinger extends javax.swing.JFrame {
         btnStop.setEnabled(false);
         btnStart.setEnabled(true);
     }//GEN-LAST:event_btnStopActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (db.checkMySQLConnection(false)) {
+            if (employeeID > 0) {
+                if (!dataFinger.isEmpty()) {
+                    int resultCheck = db.checkDataFingerExist(employeeID, indexFinger);
+                    int effective = 1, templateType = 10, flag = 1;
+                    switch (resultCheck) {
+                        case 0:
+                            String query = "INSERT into hr_template (effective, template_type, template_len, template_str, flag, template_index, employee_id) VALUES ("
+                                    + effective + "," + templateType + "," + scannedTemplateLength + ",'" + dataFinger + "'," + flag + "," + indexFinger + "," + employeeID + ")";
+                            db.execute_query(false, query);
+                            JOptionPane.showMessageDialog(this, "Record has been inserted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        case 1:
+                            if (templateID > 0) {
+                                String updateQuery = "UPDATE hr_template set template_len = " + scannedTemplateLength + ", template_str = '" + dataFinger + "' WHERE id = " + templateID;
+                                db.execute_query(false, updateQuery);
+                                JOptionPane.showMessageDialog(this, "Record has been updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Invalid Template ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+                            }
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(this, "Error : Something's wrong when connecting to server.", "Warning", JOptionPane.ERROR_MESSAGE);
+                            break;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please Scan Your Finger First.", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error : Failed to connect database server.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments

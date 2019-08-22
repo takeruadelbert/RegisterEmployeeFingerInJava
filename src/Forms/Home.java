@@ -24,6 +24,7 @@ public class Home extends javax.swing.JFrame {
 
     private int employeeID = -1;
     private ScanFinger scan;
+    public String employeeNIK;
 
     /**
      * Creates new form Employee
@@ -413,6 +414,7 @@ public class Home extends javax.swing.JFrame {
     private void txt_employee_nikKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_employee_nikKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             String employeeNIK = txt_employee_nik.getText();
+            this.employeeNIK = employeeNIK;
             if (!employeeNIK.isEmpty()) {
                 resetDataTemplateFingerEmployee();
                 fetchDataEmployeeByNIK(employeeNIK);
@@ -425,7 +427,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftPinkyFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftPinkyFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger1.getText().isEmpty() ? Integer.parseInt(finger1.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 1, templateFinger);
+            scan = new ScanFinger(this.employeeID, 1, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -435,7 +437,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftRingFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftRingFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger2.getText().isEmpty() ? Integer.parseInt(finger2.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 2, templateFinger);
+            scan = new ScanFinger(this.employeeID, 2, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -445,7 +447,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftMiddleFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftMiddleFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger3.getText().isEmpty() ? Integer.parseInt(finger3.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 3, templateFinger);
+            scan = new ScanFinger(this.employeeID, 3, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -455,7 +457,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftIndexFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftIndexFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger4.getText().isEmpty() ? Integer.parseInt(finger4.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 4, templateFinger);
+            scan = new ScanFinger(this.employeeID, 4, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -465,7 +467,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftThumbFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftThumbFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger5.getText().isEmpty() ? Integer.parseInt(finger5.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 5, templateFinger);
+            scan = new ScanFinger(this.employeeID, 5, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -475,7 +477,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightThumbFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightThumbFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger6.getText().isEmpty() ? Integer.parseInt(finger6.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 6, templateFinger);
+            scan = new ScanFinger(this.employeeID, 6, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -485,7 +487,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightIndexFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightIndexFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger7.getText().isEmpty() ? Integer.parseInt(finger7.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 7, templateFinger);
+            scan = new ScanFinger(this.employeeID, 7, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -495,7 +497,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightMiddleFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightMiddleFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger8.getText().isEmpty() ? Integer.parseInt(finger8.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 8, templateFinger);
+            scan = new ScanFinger(this.employeeID, 8, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -505,7 +507,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightRingFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightRingFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger9.getText().isEmpty() ? Integer.parseInt(finger9.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 9, templateFinger);
+            scan = new ScanFinger(this.employeeID, 9, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -515,14 +517,14 @@ public class Home extends javax.swing.JFrame {
     private void btnRightPinkyFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightPinkyFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger10.getText().isEmpty() ? Integer.parseInt(finger10.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 10, templateFinger);
+            scan = new ScanFinger(this.employeeID, 10, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnRightPinkyFingerActionPerformed
 
-    private void fetchDataEmployeeByNIK(String employeeNIK) {
+    public void fetchDataEmployeeByNIK(String employeeNIK) {
         DBConnect db = new DBConnect();
         Employee employee = db.get_data_employee(employeeNIK);
         if (employee != null) {

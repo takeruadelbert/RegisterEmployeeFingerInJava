@@ -178,31 +178,31 @@ public class TKHelper {
     public static String GetFingerType(int indexFinger) {
         String fingerType = "";
         switch (indexFinger) {
-            case 0:
+            case 1:
                 fingerType = "Left Pinky";
                 break;
-            case 1:
+            case 2:
                 fingerType = "Left Ring";
                 break;
-            case 2:
+            case 3:
                 fingerType = "Left Middle";
                 break;
-            case 3:
+            case 4:
                 fingerType = "Left Index";
                 break;
-            case 4:
+            case 5:
                 fingerType = "Left Thumb";
                 break;
-            case 5:
+            case 6:
                 fingerType = "Right Thumb";
                 break;
-            case 6:
+            case 7:
                 fingerType = "Right Index";
                 break;
-            case 7:
+            case 8:
                 fingerType = "Right Middle";
                 break;
-            case 8:
+            case 9:
                 fingerType = "Right Ring";
                 break;
             default:

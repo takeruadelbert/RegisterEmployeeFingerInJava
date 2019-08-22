@@ -41,7 +41,6 @@ public class Device {
     public void openDevice() {
         if (0 != mhDevice) {
             //already inited
-            System.out.println("Please close device first!");
             this.scanFinger.showMessage("warning", "Please close device first!");
             return;
         }
@@ -51,25 +50,21 @@ public class Device {
         iFid = 1;
         enroll_idx = 0;
         if (FingerprintSensorErrorCode.ZKFP_ERR_OK != FingerprintSensorEx.Init()) {
-            System.out.println("Init failed!");
             this.scanFinger.showMessage("error", "Init device failed.");
             return;
         }
         ret = FingerprintSensorEx.GetDeviceCount();
         if (ret < 0) {
-            System.out.println("No devices connected!");
             this.scanFinger.showMessage("error", "No device connected.");
             FreeSensor();
             return;
         }
         if (0 == (mhDevice = FingerprintSensorEx.OpenDevice(0))) {
-            System.out.println("Open device fail, ret = " + ret + "!");
             this.scanFinger.showMessage("error", "Open device fail, ret = " + ret + "!");
             FreeSensor();
             return;
         }
         if (0 == (mhDB = FingerprintSensorEx.DBInit())) {
-            System.out.println("Init DB fail, ret = " + ret + "!");
             this.scanFinger.showMessage("error", "Init DB fail, ret = " + ret + "!");
             FreeSensor();
             return;
@@ -93,8 +88,7 @@ public class Device {
         mbStop = false;
         workThread = new WorkThread();
         workThread.start();
-        System.out.println("Open succ! Finger Image Width:" + fpWidth + ",Height:" + fpHeight);
-        this.scanFinger.appendLog("Open succ! Finger Image Width:" + fpWidth + ",Height:" + fpHeight);
+        this.scanFinger.appendLog("Open Device Success.");
     }
 
     public void closeDevice() {
@@ -119,13 +113,11 @@ public class Device {
             mhDevice = 0;
         }
         FingerprintSensorEx.Terminate();
-        System.out.println("Success Close Device.");
         this.scanFinger.appendLog("Success Close Device.");
     }
 
     public static int byteArrayToInt(byte[] bytes) {
         int number = bytes[0] & 0xFF;
-        // "|="按位或赋值。  
         number |= ((bytes[1] << 8) & 0xFF00);
         number |= ((bytes[2] << 16) & 0xFF0000);
         number |= ((bytes[3] << 24) & 0xFF000000);
@@ -136,7 +128,6 @@ public class Device {
         try {
             writeBitmap(imgBuf, fpWidth, fpHeight, "fingerprint.bmp");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -245,6 +236,7 @@ public class Device {
                     if (!strBase64.isEmpty()) {
                         int templateLength = strBase64.length();
                         this.scanFinger.scannedTemplateLength = templateLength;
+                        this.scanFinger.dataFinger = strBase64;
                     }
                     this.scanFinger.appendLog("Finish.");
                     this.scanFinger.displayScannedFingerprint();
