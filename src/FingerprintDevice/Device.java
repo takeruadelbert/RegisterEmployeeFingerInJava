@@ -221,16 +221,8 @@ public class Device {
 
     private void OnExtractOK(byte[] template, int len) {
         try {
-            int[] fid = new int[1];
-            int[] score = new int[1];
-            int ret = FingerprintSensorEx.DBIdentify(mhDB, template, fid, score);
-            if (ret == 0) {
-                System.out.println("the finger already enroll by " + fid[0] + ",cancel enroll");
-                enroll_idx = 0;
-                return;
-            }
+            int ret = -17;
             if (enroll_idx > 0 && FingerprintSensorEx.DBMatch(mhDB, regtemparray[enroll_idx - 1], template) <= 0) {
-                System.out.println("please press the same finger 3 times for the enrollment");
                 tempMessage = "please press the same finger 3 times for the enrollment.\n";
                 this.scanFinger.appendLog(tempMessage);
                 return;
@@ -254,23 +246,19 @@ public class Device {
                         int templateLength = strBase64.length();
                         this.scanFinger.scannedTemplateLength = templateLength;
                     }
-                    System.out.println("str base64 = " + strBase64);
-                    System.out.println("length = " + strBase64.length());
-                    System.out.println("enroll succ");
                     this.scanFinger.appendLog("Finish.");
                     this.scanFinger.displayScannedFingerprint();
                     enroll_idx = 0;
                     tempMessage = "";
                 } else {
-                    System.out.println("enroll fail, error code=" + ret + "");
                     this.scanFinger.showMessage("error", "Scan Failed : error code " + ret);
                 }
             } else {
                 tempMessage = "You need to press the " + (3 - enroll_idx) + " time(s) fingerprint\n";
-                System.out.println(tempMessage);
                 this.scanFinger.appendLog(tempMessage);
             }
         } catch (IOException ex) {
+            ex.printStackTrace();
             this.scanFinger.showMessage("error", "Data Scanned Fingerprint not found.");
         }
     }

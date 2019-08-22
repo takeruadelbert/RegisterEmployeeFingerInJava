@@ -83,7 +83,8 @@ public class ScanFinger extends javax.swing.JFrame {
 
     public void displayScannedFingerprint() throws IOException {
         fingerprint.setIcon(new ImageIcon(ImageIO.read(new File("fingerprint.bmp"))));
-        txtCurrentQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(templateLength));
+        System.out.println("scanned template length = " + scannedTemplateLength);
+        txtCurrentQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(scannedTemplateLength));
     }
 
     /**
