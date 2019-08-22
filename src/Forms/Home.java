@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
  */
 public class Home extends javax.swing.JFrame {
 
+    private int employeeID = -1;
+    private ScanFinger scan;
+
     /**
      * Creates new form Employee
      */
@@ -39,6 +42,8 @@ public class Home extends javax.swing.JFrame {
                 handleClosing();
             }
         });
+
+        setFieldDataTemplateFingerToHidden();
     }
 
     private void handleClosing() {
@@ -83,6 +88,16 @@ public class Home extends javax.swing.JFrame {
         btnRightRingFinger = new java.awt.Button();
         btnRightPinkyFinger = new java.awt.Button();
         txt_employee_nik = new javax.swing.JTextField();
+        finger1 = new javax.swing.JLabel();
+        finger2 = new javax.swing.JLabel();
+        finger3 = new javax.swing.JLabel();
+        finger4 = new javax.swing.JLabel();
+        finger5 = new javax.swing.JLabel();
+        finger6 = new javax.swing.JLabel();
+        finger7 = new javax.swing.JLabel();
+        finger8 = new javax.swing.JLabel();
+        finger9 = new javax.swing.JLabel();
+        finger10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register Employee Finger - Home");
@@ -121,34 +136,84 @@ public class Home extends javax.swing.JFrame {
 
         btnLeftPinkyFinger.setBackground(java.awt.Color.red);
         btnLeftPinkyFinger.setLabel("1");
+        btnLeftPinkyFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftPinkyFingerActionPerformed(evt);
+            }
+        });
 
         btnLeftRingFinger.setActionCommand("2");
         btnLeftRingFinger.setBackground(java.awt.Color.red);
         btnLeftRingFinger.setLabel("2");
+        btnLeftRingFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftRingFingerActionPerformed(evt);
+            }
+        });
 
         btnLeftMiddleFinger.setBackground(java.awt.Color.red);
         btnLeftMiddleFinger.setLabel("3");
+        btnLeftMiddleFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftMiddleFingerActionPerformed(evt);
+            }
+        });
 
         btnLeftIndexFinger.setBackground(java.awt.Color.red);
         btnLeftIndexFinger.setLabel("4");
+        btnLeftIndexFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftIndexFingerActionPerformed(evt);
+            }
+        });
 
         btnLeftThumbFinger.setBackground(java.awt.Color.red);
         btnLeftThumbFinger.setLabel("5");
+        btnLeftThumbFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftThumbFingerActionPerformed(evt);
+            }
+        });
 
         btnRightThumbFinger.setBackground(java.awt.Color.red);
         btnRightThumbFinger.setLabel("6");
+        btnRightThumbFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightThumbFingerActionPerformed(evt);
+            }
+        });
 
         btnRightIndexFinger.setBackground(java.awt.Color.red);
         btnRightIndexFinger.setLabel("7");
+        btnRightIndexFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightIndexFingerActionPerformed(evt);
+            }
+        });
 
         btnRightMiddleFinger.setBackground(java.awt.Color.red);
         btnRightMiddleFinger.setLabel("8");
+        btnRightMiddleFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightMiddleFingerActionPerformed(evt);
+            }
+        });
 
         btnRightRingFinger.setBackground(java.awt.Color.red);
         btnRightRingFinger.setLabel("9");
+        btnRightRingFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightRingFingerActionPerformed(evt);
+            }
+        });
 
         btnRightPinkyFinger.setBackground(java.awt.Color.red);
         btnRightPinkyFinger.setLabel("10");
+        btnRightPinkyFinger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightPinkyFingerActionPerformed(evt);
+            }
+        });
 
         txt_employee_nik.setBackground(new java.awt.Color(32, 33, 35));
         txt_employee_nik.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,47 +234,72 @@ public class Home extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txt_employee_nik)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(117, 117, 117)
-                                .addComponent(btnLeftRingFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(btnLeftMiddleFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(btnLeftIndexFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(110, 110, 110))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(btnLeftPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLeftThumbFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(btnRightThumbFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRightPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(62, 62, 62)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel1)
+                                            .addComponent(txt_employee_nik)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(117, 117, 117)
+                                        .addComponent(btnLeftRingFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(btnLeftMiddleFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(btnLeftIndexFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(110, 110, 110))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addComponent(btnLeftPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLeftThumbFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(btnRightThumbFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(finger1)
+                                    .addComponent(finger2)
+                                    .addComponent(finger3)
+                                    .addComponent(finger4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_employee_name, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(btnRightIndexFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(btnRightMiddleFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnRightRingFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnRightPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 15, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(finger7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(finger6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(finger8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(finger9, javax.swing.GroupLayout.Alignment.TRAILING)))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnRightIndexFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnRightMiddleFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnRightRingFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(finger5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(finger10)))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(105, 105, 105)
@@ -242,6 +332,16 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addComponent(btnLeftPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)
+                                .addComponent(finger1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(finger2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(finger3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(finger4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(finger5)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,17 +355,27 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(btnRightRingFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                                 .addComponent(btnRightThumbFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(187, 187, 187))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(22, 22, 22)
-                                        .addComponent(btnRightPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnRightPinkyFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(72, 72, 72)
+                                        .addComponent(finger6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(finger7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(finger8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(finger9))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(finger10)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -293,9 +403,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_employee_nameActionPerformed
 
     private void txt_employee_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_employee_nameKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("aaa");
-        }
+
     }//GEN-LAST:event_txt_employee_nameKeyPressed
 
     private void txt_employee_nikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_employee_nikActionPerformed
@@ -314,18 +422,123 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txt_employee_nikKeyPressed
 
+    private void btnLeftPinkyFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftPinkyFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger1.getText().isEmpty() ? Integer.parseInt(finger1.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 1, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLeftPinkyFingerActionPerformed
+
+    private void btnLeftRingFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftRingFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger2.getText().isEmpty() ? Integer.parseInt(finger2.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 2, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLeftRingFingerActionPerformed
+
+    private void btnLeftMiddleFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftMiddleFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger3.getText().isEmpty() ? Integer.parseInt(finger3.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 3, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLeftMiddleFingerActionPerformed
+
+    private void btnLeftIndexFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftIndexFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger4.getText().isEmpty() ? Integer.parseInt(finger4.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 4, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLeftIndexFingerActionPerformed
+
+    private void btnLeftThumbFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftThumbFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger5.getText().isEmpty() ? Integer.parseInt(finger5.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 5, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLeftThumbFingerActionPerformed
+
+    private void btnRightThumbFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightThumbFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger6.getText().isEmpty() ? Integer.parseInt(finger6.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 6, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRightThumbFingerActionPerformed
+
+    private void btnRightIndexFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightIndexFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger7.getText().isEmpty() ? Integer.parseInt(finger7.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 7, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRightIndexFingerActionPerformed
+
+    private void btnRightMiddleFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightMiddleFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger8.getText().isEmpty() ? Integer.parseInt(finger8.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 8, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRightMiddleFingerActionPerformed
+
+    private void btnRightRingFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightRingFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger9.getText().isEmpty() ? Integer.parseInt(finger9.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 9, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRightRingFingerActionPerformed
+
+    private void btnRightPinkyFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightPinkyFingerActionPerformed
+        if (this.employeeID != -1) {
+            int templateFinger = !finger10.getText().isEmpty() ? Integer.parseInt(finger10.getText()) : -1;
+            scan = new ScanFinger(this.employeeID, 10, templateFinger);
+            scan.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRightPinkyFingerActionPerformed
+
     private void fetchDataEmployeeByNIK(String employeeNIK) {
         DBConnect db = new DBConnect();
         Employee employee = db.get_data_employee(employeeNIK);
         if (employee != null) {
             String employeeName = employee.getName();
             txt_employee_name.setText(employeeName);
+            this.employeeID = employee.getId();
             List<TemplateFinger> dataTemplate = employee.getTemplate();
-            if(!dataTemplate.isEmpty()) {
-                for(TemplateFinger templateFinger : dataTemplate) {
+            if (!dataTemplate.isEmpty()) {
+                for (TemplateFinger templateFinger : dataTemplate) {
                     int indexFinger = templateFinger.getIndex_finger();
+                    int templateLength = templateFinger.getTemplate_length();
                     initDataTemplateFingerEmployee(indexFinger);
+                    setDataTemplateFinger(indexFinger, templateLength);
                 }
+            } else {
+                resetDataTemplateFingerEmployee();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Pegawai dengan NIK = " + employeeNIK + " tidak ditemukan.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -368,8 +581,9 @@ public class Home extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
     private void resetDataTemplateFingerEmployee() {
+        this.employeeID = -1;
         Color reset = Color.RED;
         btnLeftPinkyFinger.setBackground(reset);
         btnLeftRingFinger.setBackground(reset);
@@ -381,6 +595,56 @@ public class Home extends javax.swing.JFrame {
         btnRightMiddleFinger.setBackground(reset);
         btnRightRingFinger.setBackground(reset);
         btnRightPinkyFinger.setBackground(reset);
+    }
+
+    private void setFieldDataTemplateFingerToHidden() {
+        finger1.setVisible(false);
+        finger2.setVisible(false);
+        finger3.setVisible(false);
+        finger4.setVisible(false);
+        finger5.setVisible(false);
+        finger6.setVisible(false);
+        finger7.setVisible(false);
+        finger8.setVisible(false);
+        finger9.setVisible(false);
+        finger10.setVisible(false);
+    }
+
+    private void setDataTemplateFinger(int indexFinger, int templateLength) {
+        switch (indexFinger) {
+            case 0:
+                finger1.setText(templateLength + "");
+                break;
+            case 1:
+                finger2.setText(templateLength + "");
+                break;
+            case 2:
+                finger3.setText(templateLength + "");
+                break;
+            case 3:
+                finger4.setText(templateLength + "");
+                break;
+            case 4:
+                finger5.setText(templateLength + "");
+                break;
+            case 5:
+                finger6.setText(templateLength + "");
+                break;
+            case 6:
+                finger7.setText(templateLength + "");
+                break;
+            case 7:
+                finger8.setText(templateLength + "");
+                break;
+            case 8:
+                finger9.setText(templateLength + "");
+                break;
+            case 9:
+                finger10.setText(templateLength + "");
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -430,6 +694,16 @@ public class Home extends javax.swing.JFrame {
     private java.awt.Button btnRightPinkyFinger;
     private java.awt.Button btnRightRingFinger;
     private java.awt.Button btnRightThumbFinger;
+    private javax.swing.JLabel finger1;
+    private javax.swing.JLabel finger10;
+    private javax.swing.JLabel finger2;
+    private javax.swing.JLabel finger3;
+    private javax.swing.JLabel finger4;
+    private javax.swing.JLabel finger5;
+    private javax.swing.JLabel finger6;
+    private javax.swing.JLabel finger7;
+    private javax.swing.JLabel finger8;
+    private javax.swing.JLabel finger9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

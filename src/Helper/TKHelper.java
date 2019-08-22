@@ -32,6 +32,7 @@ public class TKHelper {
     private static Cipher ecipher;
     private static Cipher dcipher;
     public static String DES_key;
+    private static final int MAX_TEMPLATE_LENGTH = 2200;
 
     public static String encryptStringToSHA512Format(String input) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -163,5 +164,51 @@ public class TKHelper {
         byte[] encodedKey = Base64.getDecoder().decode(string_key);
         SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "DES");
         return key;
+    }
+
+    public static String CalculatePercentageTemplateFingerprint(int templateLength) {
+        if (templateLength > 0) {
+            double result = (templateLength * 1.00 / MAX_TEMPLATE_LENGTH * 1.00) * 100;
+            return (int) result + "%";
+        } else {
+            return "-";
+        }
+    }
+
+    public static String GetFingerType(int indexFinger) {
+        String fingerType = "";
+        switch (indexFinger) {
+            case 0:
+                fingerType = "Left Pinky";
+                break;
+            case 1:
+                fingerType = "Left Ring";
+                break;
+            case 2:
+                fingerType = "Left Middle";
+                break;
+            case 3:
+                fingerType = "Left Index";
+                break;
+            case 4:
+                fingerType = "Left Thumb";
+                break;
+            case 5:
+                fingerType = "Right Thumb";
+                break;
+            case 6:
+                fingerType = "Right Index";
+                break;
+            case 7:
+                fingerType = "Right Middle";
+                break;
+            case 8:
+                fingerType = "Right Ring";
+                break;
+            default:
+                fingerType = "Right Pinky";
+                break;
+        }
+        return fingerType;
     }
 }
