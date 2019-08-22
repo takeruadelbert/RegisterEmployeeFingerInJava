@@ -154,24 +154,26 @@ public class DBConnect implements Database {
     }
 
     private Employee get_data_template_finger(Employee employee) {
-        if (employee.getId() != -1) {
-            List<TemplateFinger> template = new ArrayList();
-            try {
-                if (openConnection(false)) {
-                    String query = "select id, template_len, template_index from hr_template where employee_id = " + employee.getId();
-                    statement = connection.createStatement();
-                    resultSet = statement.executeQuery(query);
-                    while (resultSet.next()) {
-                        int template_length = resultSet.getInt("template_len");
-                        int index_finger = resultSet.getInt("template_index");
-                        TemplateFinger templateFinger = new TemplateFinger(template_length, index_finger);
-                        template.add(templateFinger);
+        if (employee != null) {
+            if (employee.getId() != -1) {
+                List<TemplateFinger> template = new ArrayList();
+                try {
+                    if (openConnection(false)) {
+                        String query = "select id, template_len, template_index from hr_template where employee_id = " + employee.getId();
+                        statement = connection.createStatement();
+                        resultSet = statement.executeQuery(query);
+                        while (resultSet.next()) {
+                            int template_length = resultSet.getInt("template_len");
+                            int index_finger = resultSet.getInt("template_index");
+                            TemplateFinger templateFinger = new TemplateFinger(template_length, index_finger);
+                            template.add(templateFinger);
+                        }
+                        employee.setTemplate(template);
+                        closeConnection();
                     }
-                    employee.setTemplate(template);
-                    closeConnection();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
         return employee;

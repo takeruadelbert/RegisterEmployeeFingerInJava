@@ -219,7 +219,10 @@ public class SignIn extends javax.swing.JFrame {
                     temp.put("password", encryptedPassword);
                     TKHelper.updateJSONFile(data);
                 }
-                showMessageDialog(this, "Login Success!");
+//                showMessageDialog(this, "Login Success!");
+                Home employee = new Home();
+                employee.setVisible(true);
+                this.dispose();
             } else {
                 showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
             }
