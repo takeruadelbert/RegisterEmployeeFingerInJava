@@ -37,9 +37,9 @@ public class Device {
     /*
     * this code is for Linux Environment, comment this code otherwise.
     */
-//    static {
-//        System.loadLibrary("zkfp");
-//    }
+    static {
+        System.loadLibrary("zkfp");
+    }
 
     public Device(ScanFinger scanFinger) {
         this.scanFinger = scanFinger;
