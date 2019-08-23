@@ -178,31 +178,31 @@ public class TKHelper {
     public static String GetFingerType(int indexFinger) {
         String fingerType = "";
         switch (indexFinger) {
-            case 1:
+            case 0:
                 fingerType = "Left Pinky";
                 break;
-            case 2:
+            case 1:
                 fingerType = "Left Ring";
                 break;
-            case 3:
+            case 2:
                 fingerType = "Left Middle";
                 break;
-            case 4:
+            case 3:
                 fingerType = "Left Index";
                 break;
-            case 5:
+            case 4:
                 fingerType = "Left Thumb";
                 break;
-            case 6:
+            case 5:
                 fingerType = "Right Thumb";
                 break;
-            case 7:
+            case 6:
                 fingerType = "Right Index";
                 break;
-            case 8:
+            case 7:
                 fingerType = "Right Middle";
                 break;
-            case 9:
+            case 8:
                 fingerType = "Right Ring";
                 break;
             default:
@@ -210,5 +210,18 @@ public class TKHelper {
                 break;
         }
         return fingerType;
+    }
+
+    public static boolean destroySession() {
+        try {
+            JSONObject data = TKHelper.readJSONFile();
+            JSONObject temp = (JSONObject) data.get("data_user");
+            temp.put("username", "");
+            temp.put("password", "");
+            updateJSONFile(data);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 }

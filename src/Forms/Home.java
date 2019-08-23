@@ -8,6 +8,7 @@ package Forms;
 import Database.DBConnect;
 import Database.Data.Employee;
 import Database.Data.TemplateFinger;
+import Helper.TKHelper;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -15,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -99,6 +101,12 @@ public class Home extends javax.swing.JFrame {
         finger8 = new javax.swing.JLabel();
         finger9 = new javax.swing.JLabel();
         finger10 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        itemLogout = new javax.swing.JMenuItem();
+        itemExit = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        itemAboutProgram = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register Employee Finger - Home");
@@ -356,7 +364,7 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(btnRightRingFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                                 .addComponent(btnRightThumbFinger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(187, 187, 187))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -384,6 +392,38 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGap(61, 61, 61)))
         );
+
+        jMenu1.setText("File");
+
+        itemLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout.png"))); // NOI18N
+        itemLogout.setText("Logout");
+        itemLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLogoutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemLogout);
+
+        itemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close.png"))); // NOI18N
+        itemExit.setText("Exit Program");
+        itemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemExit);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Help");
+
+        itemAboutProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/version.png"))); // NOI18N
+        itemAboutProgram.setText("About Program");
+        jMenu2.add(itemAboutProgram);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -427,7 +467,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftPinkyFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftPinkyFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger1.getText().isEmpty() ? Integer.parseInt(finger1.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 1, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 0, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -437,7 +477,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftRingFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftRingFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger2.getText().isEmpty() ? Integer.parseInt(finger2.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 2, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 1, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -447,7 +487,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftMiddleFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftMiddleFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger3.getText().isEmpty() ? Integer.parseInt(finger3.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 3, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 2, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -457,7 +497,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftIndexFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftIndexFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger4.getText().isEmpty() ? Integer.parseInt(finger4.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 4, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 3, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -467,7 +507,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftThumbFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftThumbFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger5.getText().isEmpty() ? Integer.parseInt(finger5.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 5, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 4, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -477,7 +517,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightThumbFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightThumbFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger6.getText().isEmpty() ? Integer.parseInt(finger6.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 6, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 5, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -487,7 +527,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightIndexFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightIndexFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger7.getText().isEmpty() ? Integer.parseInt(finger7.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 7, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 6, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -497,7 +537,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightMiddleFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightMiddleFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger8.getText().isEmpty() ? Integer.parseInt(finger8.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 8, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 7, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -507,7 +547,7 @@ public class Home extends javax.swing.JFrame {
     private void btnRightRingFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightRingFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger9.getText().isEmpty() ? Integer.parseInt(finger9.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 9, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 8, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -517,12 +557,26 @@ public class Home extends javax.swing.JFrame {
     private void btnRightPinkyFingerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightPinkyFingerActionPerformed
         if (this.employeeID != -1) {
             int templateFinger = !finger10.getText().isEmpty() ? Integer.parseInt(finger10.getText()) : -1;
-            scan = new ScanFinger(this.employeeID, 10, templateFinger, this);
+            scan = new ScanFinger(this.employeeID, 9, templateFinger, this);
             scan.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnRightPinkyFingerActionPerformed
+
+    private void itemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemExitActionPerformed
+        handleClosing();
+    }//GEN-LAST:event_itemExitActionPerformed
+
+    private void itemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogoutActionPerformed
+        if (TKHelper.destroySession()) {
+            SignIn signIn = new SignIn();
+            this.dispose();
+            signIn.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Something's Wrong when clearing data session.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_itemLogoutActionPerformed
 
     public void fetchDataEmployeeByNIK(String employeeNIK) {
         DBConnect db = new DBConnect();
@@ -706,10 +760,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel finger7;
     private javax.swing.JLabel finger8;
     private javax.swing.JLabel finger9;
+    private javax.swing.JMenuItem itemAboutProgram;
+    private javax.swing.JMenuItem itemExit;
+    private javax.swing.JMenuItem itemLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

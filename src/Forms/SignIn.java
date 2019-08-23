@@ -28,13 +28,13 @@ public class SignIn extends javax.swing.JFrame {
         initComponents();
         Initialize();
     }
-    
+
     private void Initialize() {
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
@@ -207,19 +207,21 @@ public class SignIn extends javax.swing.JFrame {
             showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;
         }
-        
+
         DBConnect dbconnect = new DBConnect();
         if (dbconnect.checkMySQLConnection(true)) {
             if (dbconnect.checkSignIn(username, password)) {
+                JSONObject data = TKHelper.readJSONFile();
+                JSONObject temp = (JSONObject) data.get("data_user");
                 if (rememberMe.isSelected()) {
-                    JSONObject data = TKHelper.readJSONFile();
-                    JSONObject temp = (JSONObject) data.get("data_user");
-                    temp.put("username", username);
-                    String encryptedPassword = TKHelper.encryptString(password);
-                    temp.put("password", encryptedPassword);
-                    TKHelper.updateJSONFile(data);
+                    password = TKHelper.encryptString(password);
+                } else {
+                    username = "";
+                    password = "";
                 }
-//                showMessageDialog(this, "Login Success!");
+                temp.put("username", username);
+                temp.put("password", password);
+                TKHelper.updateJSONFile(data);
                 Home employee = new Home();
                 employee.setVisible(true);
                 this.dispose();
@@ -254,14 +256,14 @@ public class SignIn extends javax.swing.JFrame {
     private void rememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rememberMeActionPerformed
-    
+
     private void handleClosing() {
         int answer = showWarningMessage();
         if (answer == 0) {
             dispose();
         }
     }
-    
+
     private int showWarningMessage() {
         String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
         String defaultOption = buttonLabels[0];

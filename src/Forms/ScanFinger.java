@@ -8,10 +8,13 @@ package Forms;
 import Database.DBConnect;
 import FingerprintDevice.Device;
 import Helper.TKHelper;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,7 +24,7 @@ import javax.swing.JOptionPane;
  * @author STN-COM-01
  */
 public class ScanFinger extends javax.swing.JFrame {
-
+    
     private int employeeID;
     private int indexFinger;
     private int templateLength;
@@ -39,7 +42,7 @@ public class ScanFinger extends javax.swing.JFrame {
         initComponents();
         Initialize();
     }
-
+    
     public ScanFinger(int employeeID, int indexFinger, int templateLength, Home home) {
         initComponents();
         this.employeeID = employeeID;
@@ -49,26 +52,26 @@ public class ScanFinger extends javax.swing.JFrame {
         this.home = home;
         Initialize();
     }
-
+    
     private void Initialize() {
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
             }
         });
-
+        
         txtPreviousQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(templateLength));
         txtFingerType.setText(TKHelper.GetFingerType(indexFinger));
     }
-
+    
     private void handleClosing() {
         this.dispose();
         device.closeDevice();
     }
-
+    
     public void showMessage(String type, String message) {
         switch (type) {
             case "warning":
@@ -82,11 +85,11 @@ public class ScanFinger extends javax.swing.JFrame {
                 break;
         }
     }
-
+    
     public void appendLog(String logMessage) {
         fingerprintLog.setText(logMessage);
     }
-
+    
     public void displayScannedFingerprint() throws IOException {
         fingerprint.setIcon(new ImageIcon(ImageIO.read(new File("fingerprint.bmp"))));
         txtCurrentQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(scannedTemplateLength));
@@ -204,7 +207,8 @@ public class ScanFinger extends javax.swing.JFrame {
         });
         jPanel1.add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 100, -1));
 
-        btnStop.setBackground(new java.awt.Color(126, 87, 194));
+        btnStop.setBackground(new java.awt.Color(153, 153, 255));
+        btnStop.setEnabled(false);
         btnStop.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnStop.setForeground(new java.awt.Color(255, 255, 255));
         btnStop.setLabel("Stop");
@@ -271,20 +275,24 @@ public class ScanFinger extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
         device.closeDevice();
-        System.out.println("NIK = " + home.employeeNIK);
         this.home.fetchDataEmployeeByNIK(home.employeeNIK);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+        appendLog("Opening the device ...");
         this.device.openDevice();
-        btnStart.setEnabled(false);
+        btnStart.setEnabled(false);        
+        btnStart.setBackground(new Color(153, 153, 255));
         btnStop.setEnabled(true);
+        btnStop.setBackground(new Color(126, 87, 194));
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
         this.device.closeDevice();
         btnStop.setEnabled(false);
+        btnStop.setBackground(new Color(153, 153, 255));
         btnStart.setEnabled(true);
+        btnStart.setBackground(new Color(126, 87, 194));
     }//GEN-LAST:event_btnStopActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
