@@ -62,6 +62,7 @@ public class DBConfig extends javax.swing.JFrame {
         int answer = showWarningMessage();
         if (answer == 0) {
             dispose();
+            System.exit(1);
         }
     }
 
