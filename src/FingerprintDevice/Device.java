@@ -34,61 +34,73 @@ public class Device {
     private ScanFinger scanFinger;
     private String tempMessage = "";
 
+    /*
+    * this code is for Linux Environment, comment this code otherwise.
+    */
+//    static {
+//        System.loadLibrary("zkfp");
+//    }
+
     public Device(ScanFinger scanFinger) {
         this.scanFinger = scanFinger;
     }
 
     public void openDevice() {
-        if (0 != mhDevice) {
-            //already inited
-            this.scanFinger.showMessage("warning", "Please close device first!");
-            return;
-        }
-        int ret = FingerprintSensorErrorCode.ZKFP_ERR_OK;
-        //Initialize
-        cbRegTemp = 0;
-        iFid = 1;
-        enroll_idx = 0;
-        if (FingerprintSensorErrorCode.ZKFP_ERR_OK != FingerprintSensorEx.Init()) {
-            this.scanFinger.showMessage("error", "Init device failed.");
-            return;
-        }
-        ret = FingerprintSensorEx.GetDeviceCount();
-        if (ret < 0) {
-            this.scanFinger.showMessage("error", "No device connected.");
-            FreeSensor();
-            return;
-        }
-        if (0 == (mhDevice = FingerprintSensorEx.OpenDevice(0))) {
-            this.scanFinger.showMessage("error", "Open device fail, ret = " + ret + "!");
-            FreeSensor();
-            return;
-        }
-        if (0 == (mhDB = FingerprintSensorEx.DBInit())) {
-            this.scanFinger.showMessage("error", "Init DB fail, ret = " + ret + "!");
-            FreeSensor();
-            return;
+        try {
+            if (0 != mhDevice) {
+                //already inited
+                this.scanFinger.showMessage("warning", "Please close device first!");
+                return;
+            }
+            int ret = FingerprintSensorErrorCode.ZKFP_ERR_OK;
+            //Initialize
+            cbRegTemp = 0;
+            iFid = 1;
+            enroll_idx = 0;
+            if (FingerprintSensorErrorCode.ZKFP_ERR_OK != FingerprintSensorEx.Init()) {
+                this.scanFinger.showMessage("error", "Init device failed.");
+                return;
+            }
+            ret = FingerprintSensorEx.GetDeviceCount();
+            if (ret < 0) {
+                this.scanFinger.showMessage("error", "No device connected.");
+                FreeSensor();
+                return;
+            }
+            if (0 == (mhDevice = FingerprintSensorEx.OpenDevice(0))) {
+                this.scanFinger.showMessage("error", "Open device fail, ret = " + ret + "!");
+                FreeSensor();
+                return;
+            }
+            if (0 == (mhDB = FingerprintSensorEx.DBInit())) {
+                this.scanFinger.showMessage("error", "Init DB fail, ret = " + ret + "!");
+                FreeSensor();
+                return;
+            }
+
+            //For ISO/Ansi
+            int nFmt = 1;	// ISO
+            FingerprintSensorEx.DBSetParameter(mhDB, 5010, nFmt);
+
+            byte[] paramValue = new byte[4];
+            int[] size = new int[1];
+
+            size[0] = 4;
+            FingerprintSensorEx.GetParameters(mhDevice, 1, paramValue, size);
+            fpWidth = byteArrayToInt(paramValue);
+            size[0] = 4;
+            FingerprintSensorEx.GetParameters(mhDevice, 2, paramValue, size);
+            fpHeight = byteArrayToInt(paramValue);
+
+            imgbuf = new byte[fpWidth * fpHeight];
+            mbStop = false;
+            workThread = new WorkThread();
+            workThread.start();
+            this.scanFinger.appendLog("Open Device Success.\nYou need scan your finger 3 times.");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        //For ISO/Ansi
-        int nFmt = 1;	// ISO
-        FingerprintSensorEx.DBSetParameter(mhDB, 5010, nFmt);
-
-        byte[] paramValue = new byte[4];
-        int[] size = new int[1];
-
-        size[0] = 4;
-        FingerprintSensorEx.GetParameters(mhDevice, 1, paramValue, size);
-        fpWidth = byteArrayToInt(paramValue);
-        size[0] = 4;
-        FingerprintSensorEx.GetParameters(mhDevice, 2, paramValue, size);
-        fpHeight = byteArrayToInt(paramValue);
-
-        imgbuf = new byte[fpWidth * fpHeight];
-        mbStop = false;
-        workThread = new WorkThread();
-        workThread.start();
-        this.scanFinger.appendLog("Open Device Success.\nYou need scan your finger 3 times.");
     }
 
     public void closeDevice() {
@@ -138,14 +150,14 @@ public class Device {
         java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
 
         int w = (((nWidth + 3) / 4) * 4);
-        int bfType = 0x424d; 
+        int bfType = 0x424d;
         int bfSize = 54 + 1024 + w * nHeight;
         int bfReserved1 = 0;
         int bfReserved2 = 0;
         int bfOffBits = 54 + 1024;
 
-        dos.writeShort(bfType); 
-        dos.write(changeByte(bfSize), 0, 4); 
+        dos.writeShort(bfType);
+        dos.write(changeByte(bfSize), 0, 4);
         dos.write(changeByte(bfReserved1), 0, 2);
         dos.write(changeByte(bfReserved2), 0, 2);
         dos.write(changeByte(bfOffBits), 0, 4);
@@ -153,7 +165,7 @@ public class Device {
         int biSize = 40;
         int biWidth = nWidth;
         int biHeight = nHeight;
-        int biPlanes = 1; 
+        int biPlanes = 1;
         int biBitcount = 8;
         int biCompression = 0;
         int biSizeImage = w * nHeight;

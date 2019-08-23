@@ -102,25 +102,27 @@ public class AboutProgram extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/stn.png"))); // NOI18N
-        jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
 
         programName.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         programName.setForeground(new java.awt.Color(255, 255, 255));
         programName.setText("Register Employee Fingerprint");
-        jPanel1.add(programName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
+        jPanel1.add(programName, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, -1, -1));
 
         programVersion.setForeground(new java.awt.Color(255, 255, 255));
         programVersion.setText("Version 1.1");
-        jPanel1.add(programVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, -1, -1));
+        jPanel1.add(programVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Register Employee Fingerprint | Copyright © 2019 | Developed and Maintenanced by");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
+        companyName.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         companyName.setForeground(new java.awt.Color(255, 153, 102));
         companyName.setText("PT. Surya Teknologi Nasional.");
-        jPanel1.add(companyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 660, -1));
+        jPanel1.add(companyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 302, 660, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

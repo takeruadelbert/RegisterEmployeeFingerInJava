@@ -1,15 +1,20 @@
 {
     "database": {
-        "db_staff": "",
-        "db_name": "",
-        "db_username": "",
-        "db_host": "",
-        "db_password": ""
+        "db_staff": "vms",
+        "db_name": "zkatt",
+        "db_username": "admin",
+        "db_host": "192.168.88.203",
+        "db_password": "lDURcbMioX3qu0WYWq2MLw=="
     },
-    "DES_key": "",
+    "DES_key": "iokViXmwYQ0=",
     "data_user": {
-        "password": "",
-        "DES_key": "",
-        "username": ""
+        "password": "ucCmVYlnRC6c6KsGJfudkg==",
+        "username": "takeru"
+    },
+    "program": {
+        "company": "PT. Surya Teknologi Nasional",
+        "developer": "Takeru T.K.",
+        "version": "1.1",
+        "url": "https:\/\/takeruadelbert.github.io\/"
     }
 }
