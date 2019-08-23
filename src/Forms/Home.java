@@ -16,7 +16,6 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -419,6 +418,11 @@ public class Home extends javax.swing.JFrame {
 
         itemAboutProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/version.png"))); // NOI18N
         itemAboutProgram.setText("About Program");
+        itemAboutProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAboutProgramActionPerformed(evt);
+            }
+        });
         jMenu2.add(itemAboutProgram);
 
         jMenuBar1.add(jMenu2);
@@ -577,6 +581,11 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Something's Wrong when clearing data session.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_itemLogoutActionPerformed
+
+    private void itemAboutProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAboutProgramActionPerformed
+        AboutProgram about = new AboutProgram();
+        about.setVisible(true);
+    }//GEN-LAST:event_itemAboutProgramActionPerformed
 
     public void fetchDataEmployeeByNIK(String employeeNIK) {
         DBConnect db = new DBConnect();

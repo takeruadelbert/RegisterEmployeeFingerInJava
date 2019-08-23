@@ -135,7 +135,7 @@ public class DBConnect implements Database {
         if (!NIK.isEmpty()) {
             try {
                 if (openConnection(false)) {
-                    String query = "select id, nik, emp_firstName as firstName, emp_lastName as lastName from hr_employee where nik = " + NIK + " limit 1";
+                    String query = "select id, nik, emp_firstName as firstName, emp_lastName as lastName from hr_employee where nik = '" + NIK + "' limit 1";
                     statement = connection.createStatement();
                     resultSet = statement.executeQuery(query);
                     while (resultSet.next()) {

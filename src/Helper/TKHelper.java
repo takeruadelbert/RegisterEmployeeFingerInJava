@@ -28,6 +28,7 @@ import org.json.simple.parser.ParseException;
  */
 public class TKHelper {
 
+//    private static final String CONFIG_JSON_FILE = "data.json";
     private static final String CONFIG_JSON_FILE = "src/session/data.json";
     private static Cipher ecipher;
     private static Cipher dcipher;
