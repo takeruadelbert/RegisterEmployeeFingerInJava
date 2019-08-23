@@ -460,7 +460,7 @@ public class Home extends javax.swing.JFrame {
             String employeeNIK = txt_employee_nik.getText();
             this.employeeNIK = employeeNIK;
             if (!employeeNIK.isEmpty()) {
-                resetDataTemplateFingerEmployee();
+                resetDataTemplateFingerEmployee(true);
                 fetchDataEmployeeByNIK(employeeNIK);
             } else {
                 JOptionPane.showMessageDialog(this, "NIK Wajib Diisi.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -603,7 +603,7 @@ public class Home extends javax.swing.JFrame {
                     setDataTemplateFinger(indexFinger, templateLength);
                 }
             } else {
-                resetDataTemplateFingerEmployee();
+                resetDataTemplateFingerEmployee(false);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Pegawai dengan NIK = " + employeeNIK + " tidak ditemukan.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -647,8 +647,10 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
-    private void resetDataTemplateFingerEmployee() {
-        this.employeeID = -1;
+    private void resetDataTemplateFingerEmployee(boolean include_employeeID) {
+        if(include_employeeID) {
+            this.employeeID = -1;
+        }
         Color reset = Color.RED;
         btnLeftPinkyFinger.setBackground(reset);
         btnLeftRingFinger.setBackground(reset);
