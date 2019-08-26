@@ -199,10 +199,11 @@ public class SignIn extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         // TODO add your handling code here:
         String username = txt_username.getText();
-        String password = txt_password.getText();
+        String password = String.valueOf(txt_password.getPassword());
         if (username.isEmpty() || password.isEmpty()) {
             showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;

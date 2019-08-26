@@ -351,14 +351,15 @@ public class DBConfig extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnTestConnectionDB1ActionPerformed
 
+    @SuppressWarnings("unchecked")
     private void btnSaveDBConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDBConfigActionPerformed
         if (validateField()) {
-            Map<String, String> temp = new HashMap();
+            Map<String, String> temp = new HashMap<>();
             temp.put("db_host", txt_db_host.getText());
             temp.put("db_staff", txt_db_name_staff.getText());
             temp.put("db_name", txt_db_name_employee.getText());
             temp.put("db_username", txt_db_username.getText());
-            temp.put("db_password", txt_db_password.getText());
+            temp.put("db_password", String.valueOf(txt_db_password.getPassword()));
 
             // read data config JSON File
             JSONObject dataConfig = TKHelper.readJSONFile();
@@ -405,7 +406,7 @@ public class DBConfig extends javax.swing.JFrame {
         String db_staff = txt_db_name_staff.getText();
         String db_name = txt_db_name_employee.getText();
         String db_username = txt_db_username.getText();
-        String db_password = txt_db_password.getText();
+        String db_password = String.valueOf(txt_db_password.getPassword());
         db = new DBConnect(db_host, db_name, db_staff, db_username, db_password);
     }
 

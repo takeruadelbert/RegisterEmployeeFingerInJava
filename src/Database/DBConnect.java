@@ -157,7 +157,7 @@ public class DBConnect implements Database {
     private Employee get_data_template_finger(Employee employee) {
         if (employee != null) {
             if (employee.getId() != -1) {
-                List<TemplateFinger> template = new ArrayList();
+                List<TemplateFinger> template = new ArrayList<TemplateFinger>();
                 try {
                     if (openConnection(false)) {
                         String query = "select id, template_len, template_index from hr_template where employee_id = " + employee.getId();
