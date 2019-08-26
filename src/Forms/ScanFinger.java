@@ -70,7 +70,7 @@ public class ScanFinger extends javax.swing.JFrame {
     private void handleClosing() {
         this.dispose();
         device.closeDevice();
-        System.exit(1);
+        System.exit(0);
     }
     
     public void showMessage(String type, String message) {

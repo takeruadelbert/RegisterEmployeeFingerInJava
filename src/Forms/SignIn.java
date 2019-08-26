@@ -262,7 +262,7 @@ public class SignIn extends javax.swing.JFrame {
         int answer = showWarningMessage();
         if (answer == 0) {
             dispose();
-            System.exit(1);
+            System.exit(0);
         }
     }
 
