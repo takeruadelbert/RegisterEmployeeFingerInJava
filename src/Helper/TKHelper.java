@@ -28,8 +28,8 @@ import org.json.simple.parser.ParseException;
  */
 public class TKHelper {
 
-    private static final String CONFIG_JSON_FILE = "data.json";
-//    private static final String CONFIG_JSON_FILE = "src/session/data.json";
+//    private static final String CONFIG_JSON_FILE = "data.json";
+    private static final String CONFIG_JSON_FILE = "src/session/data.json";
     private static Cipher ecipher;
     private static Cipher dcipher;
     public static String DES_key;
@@ -59,6 +59,7 @@ public class TKHelper {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean updateJSONFileSingleDataWithParent(String type, String key, String value) {
         try {
             JSONObject data = readJSONFile();
@@ -75,11 +76,11 @@ public class TKHelper {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean updateJSONFileSingleData(String key, String value) {
         try {
             JSONObject data = readJSONFile();
             data.put(key, value);
-            System.out.println("data = " + data);
 
             FileWriter file = new FileWriter(CONFIG_JSON_FILE);
             file.write(data.toJSONString());
@@ -213,6 +214,7 @@ public class TKHelper {
         return fingerType;
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean destroySession() {
         try {
             JSONObject data = TKHelper.readJSONFile();
