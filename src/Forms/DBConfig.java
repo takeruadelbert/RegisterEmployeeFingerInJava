@@ -7,6 +7,7 @@ package Forms;
 
 import Database.DBConnect;
 import Helper.TKHelper;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class DBConfig extends javax.swing.JFrame {
     public DBConfig() {
         initComponents();
         Initialize();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
 
     private void Initialize() {

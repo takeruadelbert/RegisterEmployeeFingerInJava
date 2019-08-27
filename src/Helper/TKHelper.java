@@ -2,6 +2,7 @@ package Helper;
 
 import com.sun.mail.util.BASE64DecoderStream;
 import com.sun.mail.util.BASE64EncoderStream;
+import java.awt.Toolkit;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class TKHelper {
 
 //    private static final String CONFIG_JSON_FILE = "data.json";
     private static final String CONFIG_JSON_FILE = "src/session/data.json";
+    public static final String ICON_PATH = "/resources/scan.jpg";
     private static Cipher ecipher;
     private static Cipher dcipher;
     public static String DES_key;

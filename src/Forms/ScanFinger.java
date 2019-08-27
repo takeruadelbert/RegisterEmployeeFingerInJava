@@ -9,12 +9,11 @@ import Database.DBConnect;
 import FingerprintDevice.Device;
 import Helper.TKHelper;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -41,6 +40,7 @@ public class ScanFinger extends javax.swing.JFrame {
     public ScanFinger() {
         initComponents();
         Initialize();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
     
     public ScanFinger(int employeeID, int indexFinger, int templateLength, Home home) {

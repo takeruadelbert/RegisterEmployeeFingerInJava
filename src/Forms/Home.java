@@ -10,6 +10,7 @@ import Database.Data.Employee;
 import Database.Data.TemplateFinger;
 import Helper.TKHelper;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -33,6 +34,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         Initialize();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
 
     private void Initialize() {

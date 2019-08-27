@@ -9,6 +9,7 @@ import Helper.TKHelper;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -30,6 +31,7 @@ public class AboutProgram extends javax.swing.JFrame {
     public AboutProgram() {
         initComponents();
         Initialize();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
 
     private void Initialize() {
