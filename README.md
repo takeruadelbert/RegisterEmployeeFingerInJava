@@ -4,9 +4,15 @@ re-developed 'Register Employee Finger' application using Java instead of .NET F
 create "session feature" using JSON data with encryption/decryption of DES (Data Encryption Standard) Algorithm for password.
 
 
-# Ubuntu Demo
+# Install Application Demo (Ubuntu)
+download link : https://drive.google.com/drive/folders/182h-i-gC9SncsrIgCuvRtgfzTApiCLcg?usp=sharing
 ```
-https://drive.google.com/drive/folders/182h-i-gC9SncsrIgCuvRtgfzTApiCLcg?usp=sharing
+sudo dpkg -i <debian package file>
+```
+
+# Uninstall
+```
+sudo apt-get remove fingerprint
 ```
 
 # Additional Information
