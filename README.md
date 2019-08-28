@@ -6,7 +6,7 @@ create "session feature" using JSON data with encryption/decryption of DES (Data
 
 # Install Application Demo (Ubuntu)
 download link : https://drive.google.com/drive/folders/182h-i-gC9SncsrIgCuvRtgfzTApiCLcg?usp=sharing
-you can install the application either via Ubuntu Software Center or via terminal:
+<br>You can install the application either via Ubuntu Software Center or via terminal:
 ```
 sudo dpkg -i <debian package file>
 ```
