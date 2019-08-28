@@ -21,3 +21,8 @@ sudo apt-get remove fingerprint
 ```
 sudo apt-get install libgnome2-0
 ```
+- To create dekstop application launcher as root, create this executable file "gksudo" for example.
+```
+pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY $@
+```
+and then put it into ```/usr/local/bin<i/>``` lastly make it executable with ``` sudo chmod 755 gksudo ```
