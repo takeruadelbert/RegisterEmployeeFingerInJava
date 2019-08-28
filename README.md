@@ -25,4 +25,5 @@ sudo apt-get install libgnome2-0
 ```
 pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY $@
 ```
-and then put it into ```/usr/local/bin<i/>``` lastly make it executable with ``` sudo chmod 755 gksudo ```
+and then put it into ```/usr/local/bin<i/>``` lastly make it executable with ``` sudo chmod 755 gksudo ```. Done!
+you can execute application with privilege as root with ``` gksudo <application> ```.
