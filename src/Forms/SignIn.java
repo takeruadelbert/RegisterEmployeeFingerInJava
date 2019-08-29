@@ -9,6 +9,8 @@ import Database.DBConnect;
 import Helper.TKHelper;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.Icon;
@@ -30,18 +32,40 @@ public class SignIn extends javax.swing.JFrame {
         Initialize();
         setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
-
+    
     private void Initialize() {
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
             }
         });
+
+        // add key listener on enter sign in
+        KeyListener keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    signIn();
+                }
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                
+            }            
+        };
+        txt_username.addKeyListener(keyListener);
+        txt_password.addKeyListener(keyListener);
 
         // init data login
         JSONObject temp = TKHelper.readJSONFile();
@@ -200,17 +224,20 @@ public class SignIn extends javax.swing.JFrame {
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
-
+    
     @SuppressWarnings("unchecked")
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
-        // TODO add your handling code here:
+        signIn();
+    }//GEN-LAST:event_btnSignInActionPerformed
+    
+    private void signIn() {
         String username = txt_username.getText();
         String password = String.valueOf(txt_password.getPassword());
         if (username.isEmpty() || password.isEmpty()) {
             showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;
         }
-
+        
         DBConnect dbconnect = new DBConnect();
         if (dbconnect.checkMySQLConnection(true)) {
             if (dbconnect.checkSignIn(username, password)) {
@@ -234,7 +261,7 @@ public class SignIn extends javax.swing.JFrame {
         } else {
             showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSignInActionPerformed
+    }
 
     private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
         // TODO add your handling code here:        
@@ -260,7 +287,7 @@ public class SignIn extends javax.swing.JFrame {
     private void rememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rememberMeActionPerformed
-
+    
     private void handleClosing() {
         int answer = showWarningMessage();
         if (answer == 0) {
@@ -268,7 +295,7 @@ public class SignIn extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-
+    
     private int showWarningMessage() {
         String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
         String defaultOption = buttonLabels[0];

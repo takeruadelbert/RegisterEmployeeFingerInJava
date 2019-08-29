@@ -8,6 +8,8 @@ package Forms;
 import Database.DBConnect;
 import Helper.TKHelper;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
@@ -43,6 +45,31 @@ public class DBConfig extends javax.swing.JFrame {
                 handleClosing();
             }
         });
+
+        // add listener to whole textfields
+        KeyListener keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    save();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        };
+        txt_db_host.addKeyListener(keyListener);
+        txt_db_name_employee.addKeyListener(keyListener);
+        txt_db_name_staff.addKeyListener(keyListener);
+        txt_db_password.addKeyListener(keyListener);
+        txt_db_username.addKeyListener(keyListener);
 
         // init data config
         JSONObject data = TKHelper.readJSONFile();
@@ -355,6 +382,10 @@ public class DBConfig extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     private void btnSaveDBConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDBConfigActionPerformed
+        save();
+    }//GEN-LAST:event_btnSaveDBConfigActionPerformed
+
+    private void save() {
         if (validateField()) {
             Map<String, String> temp = new HashMap<>();
             temp.put("db_host", txt_db_host.getText());
@@ -385,7 +416,7 @@ public class DBConfig extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Something's wrong : failed to save configuration.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnSaveDBConfigActionPerformed
+    }
 
     private void txt_db_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_db_passwordActionPerformed
         // TODO add your handling code here:
