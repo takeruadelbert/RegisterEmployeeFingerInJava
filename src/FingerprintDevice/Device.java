@@ -36,21 +36,20 @@ public class Device {
 
     /*
     * this code is for Linux Environment, comment this code otherwise.
-    */
-    static {
-        System.loadLibrary("zkfp");
-    }
-
+     */
+//    static {
+//        System.loadLibrary("zkfp");
+//    }
     public Device(ScanFinger scanFinger) {
         this.scanFinger = scanFinger;
     }
 
-    public void openDevice() {
+    public boolean openDevice() {
         try {
             if (0 != mhDevice) {
                 //already inited
                 this.scanFinger.showMessage("warning", "Please close device first!");
-                return;
+                return false;
             }
             int ret = FingerprintSensorErrorCode.ZKFP_ERR_OK;
             //Initialize
@@ -59,23 +58,23 @@ public class Device {
             enroll_idx = 0;
             if (FingerprintSensorErrorCode.ZKFP_ERR_OK != FingerprintSensorEx.Init()) {
                 this.scanFinger.showMessage("error", "Init device failed.");
-                return;
+                return false;
             }
             ret = FingerprintSensorEx.GetDeviceCount();
             if (ret < 0) {
                 this.scanFinger.showMessage("error", "No device connected.");
                 FreeSensor();
-                return;
+                return false;
             }
             if (0 == (mhDevice = FingerprintSensorEx.OpenDevice(0))) {
                 this.scanFinger.showMessage("error", "Open device fail, ret = " + ret + "!");
                 FreeSensor();
-                return;
+                return false;
             }
             if (0 == (mhDB = FingerprintSensorEx.DBInit())) {
                 this.scanFinger.showMessage("error", "Init DB fail, ret = " + ret + "!");
                 FreeSensor();
-                return;
+                return false;
             }
 
             //For ISO/Ansi
@@ -97,8 +96,10 @@ public class Device {
             workThread = new WorkThread();
             workThread.start();
             this.scanFinger.appendLog("Open Device Success.\nYou need scan your finger 3 times.");
+            return true;
         } catch (Exception ex) {
             ex.printStackTrace();
+            return false;
         }
 
     }

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author STN-COM-01
  */
 public class ScanFinger extends javax.swing.JFrame {
-    
+
     private int employeeID;
     private int indexFinger;
     private int templateLength;
@@ -42,7 +42,7 @@ public class ScanFinger extends javax.swing.JFrame {
         Initialize();
         setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
-    
+
     public ScanFinger(int employeeID, int indexFinger, int templateLength, Home home) {
         initComponents();
         this.employeeID = employeeID;
@@ -52,26 +52,26 @@ public class ScanFinger extends javax.swing.JFrame {
         this.home = home;
         Initialize();
     }
-    
+
     private void Initialize() {
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
             }
         });
-        
+
         txtPreviousQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(templateLength));
         txtFingerType.setText(TKHelper.GetFingerType(indexFinger));
     }
-    
+
     private void handleClosing() {
         this.dispose();
         device.closeDevice();
     }
-    
+
     public void showMessage(String type, String message) {
         switch (type) {
             case "warning":
@@ -85,11 +85,11 @@ public class ScanFinger extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
     public void appendLog(String logMessage) {
         fingerprintLog.setText(logMessage);
     }
-    
+
     public void displayScannedFingerprint() throws IOException {
         fingerprint.setIcon(new ImageIcon(ImageIO.read(new File("fingerprint.bmp"))));
         txtCurrentQuality.setText(TKHelper.CalculatePercentageTemplateFingerprint(scannedTemplateLength));
@@ -280,11 +280,14 @@ public class ScanFinger extends javax.swing.JFrame {
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         appendLog("Opening the device ...");
-        this.device.openDevice();
-        btnStart.setEnabled(false);        
-        btnStart.setBackground(new Color(153, 153, 255));
-        btnStop.setEnabled(true);
-        btnStop.setBackground(new Color(126, 87, 194));
+        if (this.device.openDevice()) {
+            btnStart.setEnabled(false);
+            btnStart.setBackground(new Color(153, 153, 255));
+            btnStop.setEnabled(true);
+            btnStop.setBackground(new Color(126, 87, 194));
+        } else {
+            appendLog("Open device failed.");
+        }
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed

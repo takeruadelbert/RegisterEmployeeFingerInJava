@@ -43,6 +43,8 @@ public class AboutProgram extends javax.swing.JFrame {
             }
         });
         setLocationRelativeTo(null);
+        String footer = "Register Employee Fingerprint | Copyright © " + TKHelper.getCurrentYear() + " | Developed and Maintenanced by";
+        txtFooter.setText(footer);
         addHyperlink();
     }
 
@@ -92,7 +94,7 @@ public class AboutProgram extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
         programName = new javax.swing.JLabel();
         programVersion = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        txtFooter = new javax.swing.JLabel();
         companyName = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
@@ -115,10 +117,10 @@ public class AboutProgram extends javax.swing.JFrame {
         programVersion.setText("Version 1.1");
         jPanel1.add(programVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Register Employee Fingerprint | Copyright © 2019 | Developed and Maintenanced by");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        txtFooter.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        txtFooter.setForeground(new java.awt.Color(255, 255, 255));
+        txtFooter.setText("Register Employee Fingerprint | Copyright © 2019 | Developed and Maintenanced by");
+        jPanel1.add(txtFooter, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
         companyName.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         companyName.setForeground(new java.awt.Color(255, 153, 102));
@@ -177,11 +179,11 @@ public class AboutProgram extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel companyName;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel programName;
     private javax.swing.JLabel programVersion;
+    private javax.swing.JLabel txtFooter;
     // End of variables declaration//GEN-END:variables
 }

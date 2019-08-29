@@ -2,7 +2,6 @@ package Helper;
 
 import com.sun.mail.util.BASE64DecoderStream;
 import com.sun.mail.util.BASE64EncoderStream;
-import java.awt.Toolkit;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +9,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Calendar;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -228,5 +228,9 @@ public class TKHelper {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    public static int getCurrentYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
     }
 }
