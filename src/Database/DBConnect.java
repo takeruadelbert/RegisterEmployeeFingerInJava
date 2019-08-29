@@ -34,6 +34,8 @@ public class DBConnect implements Database {
     private static Connection connection;
     private static Statement statement;
     private static ResultSet resultSet;
+    private static final int CONNECTION_TIMEOUT = 3000; // 3 seconds
+    private static final int SOCKET_TIMEOUT = 10000;
 
     public DBConnect() {
         initDBConfig();
@@ -52,7 +54,7 @@ public class DBConnect implements Database {
         try {
             Class.forName(JDBC_DRIVER);
             String db_type = is_for_staff ? db_staff : db_name;
-            String db_URL = "jdbc:mysql://" + db_host + "/" + db_type;
+            String db_URL = "jdbc:mysql://" + db_host + "/" + db_type + "?connectTimeout=" + CONNECTION_TIMEOUT + "&socketTimeout=" + SOCKET_TIMEOUT;
             connection = DriverManager.getConnection(db_URL, db_username, db_password);
             return connection != null ? true : false;
         } catch (Exception ex) {
