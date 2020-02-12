@@ -61,6 +61,36 @@ public class TKHelper {
         return null;
     }
 
+    public static String getTokenBearer() {
+        try {
+            JSONObject data = readJSONFile();
+            if (!data.isEmpty()) {
+                JSONObject dataUser = (JSONObject) data.get("data_user");
+                if (!dataUser.isEmpty()) {
+                    return dataUser.get("token_bearer").toString();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getHost() {
+        try {
+            JSONObject data = readJSONFile();
+            if (!data.isEmpty()) {
+                JSONObject dataUser = (JSONObject) data.get("database");
+                if (!dataUser.isEmpty()) {
+                    return dataUser.get("db_host").toString();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     @SuppressWarnings("unchecked")
     public static boolean updateJSONFileSingleDataWithParent(String type, String key, String value) {
         try {

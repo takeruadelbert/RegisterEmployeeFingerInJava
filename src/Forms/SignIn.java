@@ -7,6 +7,10 @@ package Forms;
 
 import Database.DBConnect;
 import Helper.TKHelper;
+import RestApi.Request.Login;
+import RestApi.Response.User;
+import RestApi.Service.SignInService;
+import RestApi.ServiceGenerator;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -16,13 +20,18 @@ import java.awt.event.WindowEvent;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.*;
+import okhttp3.ResponseBody;
 import org.json.simple.JSONObject;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  *
  * @author STN-COM-01
  */
 public class SignIn extends javax.swing.JFrame {
+
+    private SignInService signInService;
 
     /**
      * Creates new form SignIn
@@ -34,6 +43,8 @@ public class SignIn extends javax.swing.JFrame {
     }
 
     private void Initialize() {
+        signInService = ServiceGenerator.createBaseService(SignInService.class);
+
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
@@ -237,10 +248,34 @@ public class SignIn extends javax.swing.JFrame {
             showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;
         }
+        requestApiLogin(username, password);
+    }
 
-        DBConnect dbconnect = new DBConnect();
-        if (dbconnect.checkMySQLConnection(true)) {
-            if (dbconnect.checkSignIn(username, password)) {
+    private void requestApiLogin(String username, String password) {
+        Call<ResponseBody> loginCall = signInService.apiSignIn(new Login(username, password));
+        try {
+            Response<ResponseBody> response = loginCall.execute();
+            if (response.code() == 200) {
+                String tokenBearer = response.headers().get("Authorization");
+                if (TKHelper.updateJSONFileSingleDataWithParent("data_user", "token_bearer", tokenBearer)) {
+                    requestApiDataSession(username, password);
+                } else {
+                    showMessageDialog(this, "Something's wrong when storing data token.", "Login Failed.", WARNING_MESSAGE);
+                }
+            } else {
+                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
+        }
+    }
+
+    private void requestApiDataSession(String username, String password) {
+        Call<User> userCall = signInService.apiGetDataSession();
+        try {
+            Response<User> response = userCall.execute();
+            if (response.code() == 200) {
                 JSONObject data = TKHelper.readJSONFile();
                 JSONObject temp = (JSONObject) data.get("data_user");
                 if (rememberMe.isSelected()) {
@@ -256,10 +291,11 @@ public class SignIn extends javax.swing.JFrame {
                 employee.setVisible(true);
                 this.dispose();
             } else {
-                showMessageDialog(this, "Username/password salah.", "Login Failed.", WARNING_MESSAGE);
+                showMessageDialog(this, "Fail to fetch data user.", "Login Failed.", WARNING_MESSAGE);
             }
-        } else {
-            showMessageDialog(this, "Can't Establish Connection.", "Error", ERROR_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            showMessageDialog(this, "Error occurred when fetching data session.", "Error", ERROR_MESSAGE);
         }
     }
 

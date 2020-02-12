@@ -4,8 +4,9 @@
     },
     "DES_key": "iokViXmwYQ0=",
     "data_user": {
-        "password": "ucCmVYlnRC6c6KsGJfudkg==",
-        "username": "takeru"
+        "password": "PlBU1ePPw3zqu0WYWq2MLw==",
+        "token_bearer": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU4MTU4NTA4MywiaWF0IjoxNTgxNDk4NjgzLCJhdXRob3JpdGllcyI6IlJPTEVfU1VQRVJBRE1JTiJ9.6OWEPoIjibvPEhMkRjLDaqwSzg3S_iG-KS5Uj9jJy4UpqPZfaebeuqVg3J4PB2gXvC3IYRMldj-b_iF5UhLa9Q",
+        "username": "admin"
     },
     "program": {
         "company": "PT. Surya Teknologi Nasional",
