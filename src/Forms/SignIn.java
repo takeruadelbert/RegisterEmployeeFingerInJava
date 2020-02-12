@@ -32,13 +32,13 @@ public class SignIn extends javax.swing.JFrame {
         Initialize();
         setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
-    
+
     private void Initialize() {
         pnl_overlay.setBackground(new Color(0, 0, 0, 200));
         txt_password.setEchoChar('●');
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
@@ -49,20 +49,20 @@ public class SignIn extends javax.swing.JFrame {
         KeyListener keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                
+
             }
-            
+
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     signIn();
                 }
             }
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
-                
-            }            
+
+            }
         };
         txt_username.addKeyListener(keyListener);
         txt_password.addKeyListener(keyListener);
@@ -224,12 +224,12 @@ public class SignIn extends javax.swing.JFrame {
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
-    
+
     @SuppressWarnings("unchecked")
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         signIn();
     }//GEN-LAST:event_btnSignInActionPerformed
-    
+
     private void signIn() {
         String username = txt_username.getText();
         String password = String.valueOf(txt_password.getPassword());
@@ -237,7 +237,7 @@ public class SignIn extends javax.swing.JFrame {
             showMessageDialog(this, "username/password must not be empty.", "Warning", WARNING_MESSAGE);
             return;
         }
-        
+
         DBConnect dbconnect = new DBConnect();
         if (dbconnect.checkMySQLConnection(true)) {
             if (dbconnect.checkSignIn(username, password)) {
@@ -269,8 +269,8 @@ public class SignIn extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        DBConfig config = new DBConfig();
-        config.setVisible(true);
+        Setting setting = new Setting();
+        setting.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -287,7 +287,7 @@ public class SignIn extends javax.swing.JFrame {
     private void rememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rememberMeActionPerformed
-    
+
     private void handleClosing() {
         int answer = showWarningMessage();
         if (answer == 0) {
@@ -295,7 +295,7 @@ public class SignIn extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    
+
     private int showWarningMessage() {
         String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
         String defaultOption = buttonLabels[0];

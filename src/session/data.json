@@ -1,10 +1,6 @@
 {
     "database": {
-        "db_staff": "vms",
-        "db_name": "zkatt",
-        "db_username": "admin",
-        "db_host": "192.168.88.203",
-        "db_password": "lDURcbMioX3qu0WYWq2MLw=="
+        "db_host": "192.168.88.203:4003"
     },
     "DES_key": "iokViXmwYQ0=",
     "data_user": {
