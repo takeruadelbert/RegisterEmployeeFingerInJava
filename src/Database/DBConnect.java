@@ -38,7 +38,7 @@ public class DBConnect implements Database {
     private static final int SOCKET_TIMEOUT = 10000;
 
     public DBConnect() {
-        initDBConfig();
+//        initDBConfig();
     }
 
     public DBConnect(String db_host, String db_name, String db_staff, String db_username, String db_password) {

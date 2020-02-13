@@ -5,6 +5,7 @@
  */
 package Forms;
 
+import EntityConstant.Constant;
 import Helper.TKHelper;
 import RestApi.Request.Login;
 import RestApi.Service.SignInService;
@@ -28,8 +29,6 @@ import retrofit2.Response;
  * @author takeru
  */
 public class Setting extends javax.swing.JFrame {
-
-    private static final String EMPTY_STRING = "";
 
     /**
      * Creates new form Setting
@@ -253,7 +252,7 @@ public class Setting extends javax.swing.JFrame {
                     TKHelper.updateJSONFileSingleDataWithParent("database", "db_host", host);
                 }
                 SignInService signInService = ServiceGenerator.createBaseService(SignInService.class);
-                Call<ResponseBody> testCall = signInService.apiSignIn(new Login(EMPTY_STRING, EMPTY_STRING));
+                Call<ResponseBody> testCall = signInService.apiSignIn(new Login(Constant.EMPTY_STRING, Constant.EMPTY_STRING));
                 Response<ResponseBody> response = testCall.execute();
                 if (response.code() == 401) {
                     JOptionPane.showMessageDialog(this, "Connection Established.", "Success", JOptionPane.INFORMATION_MESSAGE);

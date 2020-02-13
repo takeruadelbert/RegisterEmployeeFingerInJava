@@ -8,7 +8,11 @@ package Forms;
 import Database.DBConnect;
 import Database.Data.Employee;
 import Database.Data.TemplateFinger;
+import EntityConstant.Constant;
 import Helper.TKHelper;
+import RestApi.Response.Fingerprint;
+import RestApi.Response.Party;
+import RestApi.ServiceGenerator;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -17,16 +21,20 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import retrofit2.Call;
+import retrofit2.Response;
+import RestApi.Service.PartyService;
 
 /**
  *
  * @author STN-COM-01
  */
 public class Home extends javax.swing.JFrame {
-
+    
     private int employeeID = -1;
     private ScanFinger scan;
     public String employeeNIK;
+    private PartyService partyService;
 
     /**
      * Creates new form Employee
@@ -36,20 +44,21 @@ public class Home extends javax.swing.JFrame {
         Initialize();
         setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
-
+    
     private void Initialize() {
+        partyService = ServiceGenerator.createBaseService(PartyService.class);
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-
+        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
             }
         });
-
+        
         setFieldDataTemplateFingerToHidden();
     }
-
+    
     private void handleClosing() {
         int answer = showWarningMessage();
         if (answer == 0) {
@@ -57,7 +66,7 @@ public class Home extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-
+    
     private int showWarningMessage() {
         String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
         String defaultOption = buttonLabels[0];
@@ -378,7 +387,7 @@ public class Home extends javax.swing.JFrame {
             this.employeeNIK = employeeNIK;
             if (!employeeNIK.isEmpty()) {
                 resetDataTemplateFingerEmployee(true);
-                fetchDataEmployeeByNIK(employeeNIK);
+                fetchDataPartyByNIK(employeeNIK);
             } else {
                 JOptionPane.showMessageDialog(this, "NIK Wajib Diisi.", "Warning", JOptionPane.WARNING_MESSAGE);
             }
@@ -511,7 +520,35 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftPinkyFinger4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftPinkyFinger4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLeftPinkyFinger4ActionPerformed
-
+    
+    public void fetchDataPartyByNIK(String nik) {
+        try {
+            Call<Party> partyCall = partyService.apiSearchEmployeeByNik(nik);
+            Response<Party> response = partyCall.execute();
+            if (response.code() == 200) {
+                Party party = response.body();
+                txt_employee_name.setText(party.getFullName());
+                this.employeeID = party.getId();
+                if (!party.getFingerprints().isEmpty()) {
+                    for (Fingerprint fingerprint : party.getFingerprints()) {
+                        initDataTemplateFingerEmployee(fingerprint.getFingerType());
+                        setDataTemplateFinger(fingerprint.getFingerType(), fingerprint.getTemplateFingerprintLength());
+                    }
+                } else {
+                    resetDataTemplateFingerEmployee(false);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, String.format("Pegawai dengan NIK = %s tidak ditemukan.", employeeNIK), "Warning", JOptionPane.WARNING_MESSAGE);
+                reset();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Warning", JOptionPane.ERROR_MESSAGE);
+            reset();
+        }
+    }
+    
+    @Deprecated
     public void fetchDataEmployeeByNIK(String employeeNIK) {
         DBConnect db = new DBConnect();
         Employee employee = db.get_data_employee(employeeNIK);
@@ -534,7 +571,7 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pegawai dengan NIK = " + employeeNIK + " tidak ditemukan.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-
+    
     private void initDataTemplateFingerEmployee(int indexFinger) {
         switch (indexFinger) {
             case 0:
@@ -571,9 +608,9 @@ public class Home extends javax.swing.JFrame {
                 break;
         }
     }
-
+    
     private void resetDataTemplateFingerEmployee(boolean include_employeeID) {
-        if(include_employeeID) {
+        if (include_employeeID) {
             this.employeeID = -1;
         }
         Color reset = Color.RED;
@@ -588,7 +625,7 @@ public class Home extends javax.swing.JFrame {
         btnRightRingFinger.setBackground(reset);
         btnRightPinkyFinger.setBackground(reset);
     }
-
+    
     private void setFieldDataTemplateFingerToHidden() {
         finger1.setVisible(false);
         finger2.setVisible(false);
@@ -601,7 +638,7 @@ public class Home extends javax.swing.JFrame {
         finger9.setVisible(false);
         finger10.setVisible(false);
     }
-
+    
     private void setDataTemplateFinger(int indexFinger, int templateLength) {
         switch (indexFinger) {
             case 0:
@@ -637,6 +674,12 @@ public class Home extends javax.swing.JFrame {
             default:
                 break;
         }
+    }
+    
+    private void reset() {
+        resetDataTemplateFingerEmployee(true);
+        txt_employee_nik.setText(Constant.EMPTY_STRING);
+        txt_employee_name.setText(Constant.EMPTY_STRING);
     }
 
     /**

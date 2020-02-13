@@ -8,6 +8,10 @@ package Forms;
 import Database.DBConnect;
 import FingerprintDevice.Device;
 import Helper.TKHelper;
+import RestApi.Request.RequestDataPartyFingerprint;
+import RestApi.Request.RequestDataFingerprint;
+import RestApi.Service.PartyService;
+import RestApi.ServiceGenerator;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -17,6 +21,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  *
@@ -33,6 +40,7 @@ public class ScanFinger extends javax.swing.JFrame {
     public String dataFinger = "";
     private final DBConnect db = new DBConnect();
     private Home home;
+    private PartyService partyService;
 
     /**
      * Creates new form ScanFinger
@@ -54,6 +62,7 @@ public class ScanFinger extends javax.swing.JFrame {
     }
 
     private void Initialize() {
+        partyService = ServiceGenerator.createBaseService(PartyService.class);
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -275,7 +284,7 @@ public class ScanFinger extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
         device.closeDevice();
-        this.home.fetchDataEmployeeByNIK(home.employeeNIK);
+        this.home.fetchDataPartyByNIK(home.employeeNIK);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
@@ -291,14 +300,49 @@ public class ScanFinger extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
+        terminateDevice();
+    }//GEN-LAST:event_btnStopActionPerformed
+
+    private void terminateDevice() {
         this.device.closeDevice();
         btnStop.setEnabled(false);
         btnStop.setBackground(new Color(153, 153, 255));
         btnStart.setEnabled(true);
         btnStart.setBackground(new Color(126, 87, 194));
-    }//GEN-LAST:event_btnStopActionPerformed
+    }
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        registerFingerprintParty();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void registerFingerprintParty() {
+        try {
+            if (employeeID > 0) {
+                if (!dataFinger.isEmpty()) {
+                    RequestDataPartyFingerprint registerFingerprint = new RequestDataPartyFingerprint(employeeID, new RequestDataFingerprint(indexFinger, scannedTemplateLength, dataFinger));
+                    Call<ResponseBody> registerCall = partyService.apiRegisterFingerprint(employeeID, registerFingerprint);
+                    Response<ResponseBody> response = registerCall.execute();
+                    if (response.code() == 200) {
+                        JOptionPane.showMessageDialog(this, "Fingerprint has been registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(this, response.message(), "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please Scan Your Finger First.", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error : Cannot Establish Coonection to Server.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        terminateDevice();
+    }
+
+    @Deprecated
+    private void registerFingerprint() {
         if (db.checkMySQLConnection(false)) {
             if (employeeID > 0) {
                 if (!dataFinger.isEmpty()) {
@@ -333,7 +377,7 @@ public class ScanFinger extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Error : Failed to connect database server.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }
 
     /**
      * @param args the command line arguments
