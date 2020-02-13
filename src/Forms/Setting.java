@@ -6,6 +6,9 @@
 package Forms;
 
 import Helper.TKHelper;
+import RestApi.Request.Login;
+import RestApi.Service.SignInService;
+import RestApi.ServiceGenerator;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,13 +18,18 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import okhttp3.ResponseBody;
 import org.json.simple.JSONObject;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  *
  * @author takeru
  */
 public class Setting extends javax.swing.JFrame {
+
+    private static final String EMPTY_STRING = "";
 
     /**
      * Creates new form Setting
@@ -46,7 +54,8 @@ public class Setting extends javax.swing.JFrame {
         txt_db_host = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         btnBack = new java.awt.Button();
-        btnSaveDBConfig = new java.awt.Button();
+        btnTestConnection = new java.awt.Button();
+        btnSaveDBConfig1 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register Employee Finger - Setting");
@@ -77,13 +86,24 @@ public class Setting extends javax.swing.JFrame {
             }
         });
 
-        btnSaveDBConfig.setBackground(new java.awt.Color(126, 87, 194));
-        btnSaveDBConfig.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnSaveDBConfig.setForeground(new java.awt.Color(255, 255, 255));
-        btnSaveDBConfig.setLabel("Save");
-        btnSaveDBConfig.addActionListener(new java.awt.event.ActionListener() {
+        btnTestConnection.setActionCommand("");
+        btnTestConnection.setBackground(new java.awt.Color(126, 87, 194));
+        btnTestConnection.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnTestConnection.setForeground(new java.awt.Color(255, 255, 255));
+        btnTestConnection.setLabel("Test Connection");
+        btnTestConnection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveDBConfigActionPerformed(evt);
+                btnTestConnectionActionPerformed(evt);
+            }
+        });
+
+        btnSaveDBConfig1.setBackground(new java.awt.Color(126, 87, 194));
+        btnSaveDBConfig1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnSaveDBConfig1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSaveDBConfig1.setLabel("Save");
+        btnSaveDBConfig1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveDBConfig1ActionPerformed(evt);
             }
         });
 
@@ -92,33 +112,36 @@ public class Setting extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(245, 245, 245)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(btnSaveDBConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(216, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txt_db_host, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(210, 210, 210))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnSaveDBConfig1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(btnTestConnection, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(120, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(4, 4, 4)
                 .addComponent(txt_db_host, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104)
+                .addGap(92, 92, 92)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSaveDBConfig1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSaveDBConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                    .addComponent(btnTestConnection, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,9 +195,10 @@ public class Setting extends javax.swing.JFrame {
         txt_db_host.setText(temp.get("db_host").toString());
     }
 
-    private void btnSaveDBConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDBConfigActionPerformed
-        save();
-    }//GEN-LAST:event_btnSaveDBConfigActionPerformed
+    private void btnTestConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestConnectionActionPerformed
+        String host = txt_db_host.getText();
+        testConnection(host);
+    }//GEN-LAST:event_btnTestConnectionActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         SignIn signin = new SignIn();
@@ -185,6 +209,10 @@ public class Setting extends javax.swing.JFrame {
     private void txt_db_hostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_db_hostActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_db_hostActionPerformed
+
+    private void btnSaveDBConfig1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDBConfig1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveDBConfig1ActionPerformed
 
     private void save() {
         if (validateField()) {
@@ -215,6 +243,28 @@ public class Setting extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+
+    private void testConnection(String host) {
+        if (validateField()) {
+            try {
+                String dataHost = TKHelper.getHost();
+                if (!dataHost.equals(host)) {
+                    TKHelper.updateJSONFileSingleDataWithParent("database", "db_host", host);
+                }
+                SignInService signInService = ServiceGenerator.createBaseService(SignInService.class);
+                Call<ResponseBody> testCall = signInService.apiSignIn(new Login(EMPTY_STRING, EMPTY_STRING));
+                Response<ResponseBody> response = testCall.execute();
+                if (response.code() == 401) {
+                    JOptionPane.showMessageDialog(this, "Connection Established.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cannot Establish Connection to Host.", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     private void handleClosing() {
@@ -269,7 +319,8 @@ public class Setting extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnBack;
-    private java.awt.Button btnSaveDBConfig;
+    private java.awt.Button btnSaveDBConfig1;
+    private java.awt.Button btnTestConnection;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
