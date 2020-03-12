@@ -211,6 +211,7 @@ public class Setting extends javax.swing.JFrame {
 
     private void btnSaveDBConfig1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveDBConfig1ActionPerformed
         // TODO add your handling code here:
+        save();
     }//GEN-LAST:event_btnSaveDBConfig1ActionPerformed
 
     private void save() {

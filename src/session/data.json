@@ -1,1 +1,17 @@
-{"database":{"db_host":"192.168.88.203:4003"},"DES_key":"iokViXmwYQ0=","data_user":{"password":"PlBU1ePPw3zqu0WYWq2MLw==","token_bearer":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU4MTY3NTg2NCwiaWF0IjoxNTgxNTg5NDY0LCJhdXRob3JpdGllcyI6IlJPTEVfU1VQRVJBRE1JTiJ9.VHEqD7eDkis0pQOyZI8_iNH0C5CjG6qKSl8MSf0ibHMZhlXUpLeYDBn01rGUMw_-E8B9_JbgZrOl6C2OiHxpbg","username":"admin"},"program":{"company":"PT. Surya Teknologi Nasional","developer":"Takeru T.K.","version":"1.1","url":"https:\/\/takeruadelbert.github.io\/"}}
+{
+    "database": {
+        "db_host": "192.168.88.201:4470\/api\/"
+    },
+    "DES_key": "iokViXmwYQ0=",
+    "data_user": {
+        "password": "PlBU1ePPw3zqu0WYWq2MLw==",
+        "token_bearer": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU4NDAxMTIzMCwiaWF0IjoxNTgzOTI0ODMwLCJhdXRob3JpdGllcyI6IlJPTEVfU1VQRVJBRE1JTiJ9.Q9jMQCnPMk-PQ7w-UoGfXp0GYBFaRpjAvc-_pD8tonTq-SZM7B0Ij3OmPH9UIKaHUoKCeGm0GPFpoCe36oV0wQ",
+        "username": "admin"
+    },
+    "program": {
+        "company": "PT. Surya Teknologi Nasional",
+        "developer": "Takeru T.K.",
+        "version": "1.1",
+        "url": "https:\/\/takeruadelbert.github.io\/"
+    }
+}

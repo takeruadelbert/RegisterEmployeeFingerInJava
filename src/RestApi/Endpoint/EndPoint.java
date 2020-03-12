@@ -10,8 +10,8 @@ package RestApi.Endpoint;
  * @author takeru
  */
 public class EndPoint {
-    public static final String API_URL_LOGIN = "/login";
-    public static final String API_URL_FETCH_DATA_LOGIN = "/users/profile";
-    public static final String API_URL_SEARCH_EMPLOYEE_BY_NIK = "/search_employee_by_nik";
-    public static final String API_URL_REGISTER_FINGERPRINT = "/register_fingerprint/{partyId}";
+    public static final String API_URL_LOGIN = "login";
+    public static final String API_URL_FETCH_DATA_LOGIN = "users/profile";
+    public static final String API_URL_SEARCH_EMPLOYEE_BY_NIK = "search_employee_by_nik";
+    public static final String API_URL_REGISTER_FINGERPRINT = "register_fingerprint/{partyId}";
 }
