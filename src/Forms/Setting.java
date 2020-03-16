@@ -230,6 +230,10 @@ public class Setting extends javax.swing.JFrame {
                 }
                 TKHelper.updateJSONFile(dataConfig);
                 JOptionPane.showMessageDialog(this, "Data Configuration has been saved.");
+
+                SignIn signIn = new SignIn();
+                signIn.setVisible(true);
+                this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Something's wrong : failed to save configuration.", "Error", JOptionPane.ERROR_MESSAGE);
             }

@@ -282,10 +282,14 @@ public class ScanFinger extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        backToHome();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void backToHome() {
         this.dispose();
         device.closeDevice();
         this.home.fetchDataPartyByNIK(home.employeeNIK);
-    }//GEN-LAST:event_btnBackActionPerformed
+    }
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         appendLog("Opening the device ...");
@@ -324,7 +328,7 @@ public class ScanFinger extends javax.swing.JFrame {
                     Response<ResponseBody> response = registerCall.execute();
                     if (response.code() == 200) {
                         JOptionPane.showMessageDialog(this, "Fingerprint has been registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        return;
+                        backToHome();
                     } else {
                         JOptionPane.showMessageDialog(this, response.message(), "Warning", JOptionPane.WARNING_MESSAGE);
                     }
