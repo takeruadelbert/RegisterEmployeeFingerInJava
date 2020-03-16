@@ -30,7 +30,7 @@ import RestApi.Service.PartyService;
  * @author STN-COM-01
  */
 public class Home extends javax.swing.JFrame {
-    
+
     private int employeeID = -1;
     private ScanFinger scan;
     public String employeeNIK;
@@ -44,21 +44,21 @@ public class Home extends javax.swing.JFrame {
         Initialize();
         setIconImage(Toolkit.getDefaultToolkit().getImage(Toolkit.getDefaultToolkit().getClass().getResource(TKHelper.ICON_PATH)));
     }
-    
+
     private void Initialize() {
         partyService = ServiceGenerator.createBaseService(PartyService.class);
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 handleClosing();
             }
         });
-        
+
         setFieldDataTemplateFingerToHidden();
     }
-    
+
     private void handleClosing() {
         int answer = showWarningMessage();
         if (answer == 0) {
@@ -66,7 +66,7 @@ public class Home extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    
+
     private int showWarningMessage() {
         String[] buttonLabels = new String[]{"Yes", "No", "Cancel"};
         String defaultOption = buttonLabels[0];
@@ -383,6 +383,7 @@ public class Home extends javax.swing.JFrame {
 
     private void txt_employee_nikKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_employee_nikKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            resetDataTemplateAllFingers();
             String employeeNIK = txt_employee_nik.getText();
             this.employeeNIK = employeeNIK;
             if (!employeeNIK.isEmpty()) {
@@ -520,7 +521,7 @@ public class Home extends javax.swing.JFrame {
     private void btnLeftPinkyFinger4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftPinkyFinger4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLeftPinkyFinger4ActionPerformed
-    
+
     public void fetchDataPartyByNIK(String nik) {
         try {
             Call<Party> partyCall = partyService.apiSearchEmployeeByNik(nik);
@@ -547,7 +548,7 @@ public class Home extends javax.swing.JFrame {
             reset();
         }
     }
-    
+
     @Deprecated
     public void fetchDataEmployeeByNIK(String employeeNIK) {
         DBConnect db = new DBConnect();
@@ -571,7 +572,7 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pegawai dengan NIK = " + employeeNIK + " tidak ditemukan.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
+
     private void initDataTemplateFingerEmployee(int indexFinger) {
         switch (indexFinger) {
             case 0:
@@ -608,7 +609,7 @@ public class Home extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
     private void resetDataTemplateFingerEmployee(boolean include_employeeID) {
         if (include_employeeID) {
             this.employeeID = -1;
@@ -625,7 +626,7 @@ public class Home extends javax.swing.JFrame {
         btnRightRingFinger.setBackground(reset);
         btnRightPinkyFinger.setBackground(reset);
     }
-    
+
     private void setFieldDataTemplateFingerToHidden() {
         finger1.setVisible(false);
         finger2.setVisible(false);
@@ -638,7 +639,7 @@ public class Home extends javax.swing.JFrame {
         finger9.setVisible(false);
         finger10.setVisible(false);
     }
-    
+
     private void setDataTemplateFinger(int indexFinger, int templateLength) {
         switch (indexFinger) {
             case 0:
@@ -675,7 +676,20 @@ public class Home extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
+    private void resetDataTemplateAllFingers() {
+        finger1.setText(0 + "");
+        finger2.setText(0 + "");
+        finger3.setText(0 + "");
+        finger4.setText(0 + "");
+        finger5.setText(0 + "");
+        finger6.setText(0 + "");
+        finger7.setText(0 + "");
+        finger8.setText(0 + "");
+        finger9.setText(0 + "");
+        finger10.setText(0 + "");
+    }
+
     private void reset() {
         resetDataTemplateFingerEmployee(true);
         txt_employee_nik.setText(Constant.EMPTY_STRING);
